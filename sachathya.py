@@ -41,6 +41,8 @@ class core(object):
         * All Sachathya Objects should start with sch and ends with Obj
         
         '''
+        self.ttls = kmxTools.Tools()     
+        
         self.display("Starting Sachathya...")
         log.info('Loading internal modules...')
         self.schUtilitiesObj = schUtilities.core(self)
@@ -48,9 +50,8 @@ class core(object):
         self.schUtilitiesObj.loggerSetup(self.schArgParserObj.schLogLevel,self.schArgParserObj.schLogEnable)
         self.schStandardIOObj = schStandardIO.core(self)     
         self.schSettingsObj = schSettings.core(self)
-        self.schInterpretersObj = schInterpreter.core(self)
-        
-        self.ttls = kmxTools.Tools()        
+        self.schInterpreterObj = schInterpreter.core(self)
+           
         self.display("Internal modules loaded!")        
         self.schDoStart()
 
@@ -67,7 +68,7 @@ class core(object):
             self.schDoExit('Secret key missing in argument.')
         
         #StdOutput Setup
-        if(self.schArgParserObj.schStdRedirect=="file" and self.schArgParserObj.schMode != 'cli'):
+        if(self.schArgParserObj.schStdRedirect=="file" and self.schArgParserObj.schMode != 'console'):
             f = self.schArgParserObj.schStdRedirectLogFile
             self.schStandardIOObj.toFile(f)
             self.display('Stream redirect to file: {0}'.format(f))
@@ -84,14 +85,14 @@ class core(object):
 
     def schDoStartConsole(self):
         self.display('Running console...')
-        sch.schInterpretersObj.simpleConsole()
+        sch.schInterpreterObj.simpleConsole()
 
     def schDoStartServer(self):
         script = self.schArgParserObj.schStartupScript
         self.display('Running server {0}...'.format(script))
         if(script and os.path.exists(script)):
             script = os.path.abspath(script)
-            self.schInterpretersObj.runScript(script)
+            self.schInterpreterObj.runScript(script)
         else:
             self.schDoExit('Startup script not found')
     
@@ -101,7 +102,7 @@ class core(object):
         if(script and os.path.exists(script)):
             script = os.path.abspath(script)
             self.schQtApp = QtWidgets.QApplication(sys.argv)
-            self.schInterpretersObj.runScript(script)
+            self.schInterpreterObj.runScript(script)
             wins = self.schQtApp.topLevelWidgets()
             if len(wins): wins[0].closeEvent = self.schDoInstanceLastAction                
             sys.exit(self.schQtApp.exec_())
@@ -120,7 +121,7 @@ class core(object):
     
         for root, subdirs, files in os.walk(folder):
             if(not '__' in root):
-                self.schInterpretersObj.addToSysPath(root)
+                self.schInterpreterObj.addToSysPath(root)
 
     def schDoExit(self, msg='Custom Exit'):
         self.display('Exit: ' + msg)
@@ -145,38 +146,39 @@ class core(object):
         
         if len(arg) and arg[0].type() == 19:arg[0].accept()
 
-    def display(self, msg):
+    def display(self, msg, tag='DISPLAY'):
         stack = inspect.stack()[1]
         stack2 = inspect.stack()[2]
         fileName = os.path.basename(stack[1])
         fn = stack[3]
         fn2 = stack2[3]
-        print('[{0}()-{1}()] {2}'.format(fn,fn2,msg))
+        ti = self.ttls.getDateTime('%Y-%m-%d %H:%M:%S,000')
+        print('[{0}] {1}() - {2}() [{3}] {4}'.format(ti,fn,fn2,tag,msg))
       
     def __enter__(self):        
-        log.debug('SachathyaInstance startup...')
+        log.warn('SachathyaInstance startup actions initiated...')
         self.schDoInstanceFirstAction()
         return self        
 
     def __exit__(self, exc_type, exc_value, traceback):
-        log.debug('SachathyaInstance closing...')
+        log.warn('SachathyaInstance closing actions initiated...')
         self.schDoInstanceLastAction()
         
     def __del__(self, *args, **kwargs):
-        log.debug('Deleting SachathyaInstance...')        
+        log.warn('SachathyaInstance destroying actions initiated...')        
         self.schDoInstanceLastAction()
-        log.debug('SachathyaInstance deleted!')
-        log.debug('Thank you for using sachathya!')
+        log.warn('SachathyaInstance deleted!')
+        log.warn('Thank you for using sachathya!')
         
 if __name__ == '__main__':
     with core() as sch:
         print('SachathyaInstance created!')
 
         #Mode Check and Start App
-        if sch.schArgParserObj.schMode == 'cli':            
+        if sch.schArgParserObj.schMode == 'console':            
             sch.schDoStartConsole()
-        elif(sch.schArgParserObj.schMode == 'server'):
+        elif(sch.schArgParserObj.schMode == 'consoleApp'):
             sch.schDoStartServer()        
-        elif(sch.schArgParserObj.schMode == 'app'):
+        elif(sch.schArgParserObj.schMode == 'guiApp'):
             sch.schDoStartApp()        
         

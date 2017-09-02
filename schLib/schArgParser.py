@@ -35,7 +35,7 @@ class core(object):
         self.schScriptFolder = self._getValue('schScriptFolder')
             
     def addArguments(self):
-        self.validSchModes = ['cli','gui','server','app']
+        self.validSchModes = ['console','gui','consoleApp','guiApp']
         self.validSchStdRedirect = ['std','file']
         self.validSchLogLevel = ['debug','info','warn','error','critical']
         self.parser.add_argument('--schKey', metavar='', type=self.argValidate_schKey, default=lookups.defaultschKey, help='secret key code, should be less then 6 character')
