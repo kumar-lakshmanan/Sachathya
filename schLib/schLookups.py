@@ -14,7 +14,7 @@ versionInfo ='%s (%s)' % (versionStr, __updated__)
 licInfo="Sachathya is a Pre-compiled python framework for simple windows automation."
 contactInfo = 'Contact kaymatrix@gmail.com for more info.'
 
-logFormt = '[%(asctime)s] %(module)s %(funcName)s [%(levelname)s] %(message)s' 
+logFormt = '[%(asctime)s] %(module)s - %(funcName)s [%(levelname)s] %(message)s' 
 loggerName = __app__
 stdLogFile = __app__ + '_log.txt'
 
@@ -25,7 +25,8 @@ configFile = 'config.ini'
 #Default Arg lookups
 
 defaultschKey = 'net'
-defaultschLogEnable = 0
+defaultschLogEnable = 1
+defaultschLogLevel = 'info' #debug, info, warn, error, critical
 defaultschStdRedirect = 'std' #std, file
 defaultschStdRedirectLogFile = 'schLog.log'
 #defaultschMode = 'server'  #cli, app, server

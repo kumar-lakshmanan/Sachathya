@@ -21,16 +21,16 @@ import os
 import inspect
 
 import logging as log
+import logging.config
+       
 logger = log.getLogger()
 log.basicConfig(format=schLookups.logFormt,level=log.DEBUG)
-logger.disabled=True
-
-import logging.config
+logger.disabled = 1
 logging.config.dictConfig({
     'version': 1,
-    'disable_existing_loggers': True
+    'disable_existing_loggers': 1
 })
-
+               
 class core(object):
     '''
     Sachathya Core
@@ -43,19 +43,20 @@ class core(object):
         '''
         self.display("Starting Sachathya...")
         log.info('Loading internal modules...')
+        self.schUtilitiesObj = schUtilities.core(self)
         self.schArgParserObj = schArgParser.core(self)
-        logger.disabled = not self.schArgParserObj.schLogEnable         
+        self.schUtilitiesObj.loggerSetup(self.schArgParserObj.schLogLevel,self.schArgParserObj.schLogEnable)
         self.schStandardIOObj = schStandardIO.core(self)     
         self.schSettingsObj = schSettings.core(self)
         self.schInterpretersObj = schInterpreter.core(self)
-        self.schUtilitiesObj = schUtilities.core(self)
+        
         self.ttls = kmxTools.Tools()        
         self.display("Internal modules loaded!")        
         self.schDoStart()
-                       
+
     def schDoStart(self):
         self.display("Starting initial setup...")
-
+        
         #Security Setup
         key = self.schArgParserObj.schKey
         if (key):

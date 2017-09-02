@@ -28,6 +28,7 @@ class core(object):
         self.schKey = self._getValue('schKey')        
         self.schMode = self._getValue('schMode')
         self.schLogEnable = self._getValue('schLogEnable')
+        self.schLogLevel = self._getValue('schLogLevel')
         self.schStdRedirect = self._getValue('schStdRedirect')
         self.schStdRedirectLogFile = self._getValue('schStdRedirectLogFile')
         self.schStartupScript = self._getValue('schStartupScript')
@@ -36,19 +37,28 @@ class core(object):
     def addArguments(self):
         self.validSchModes = ['cli','gui','server','app']
         self.validSchStdRedirect = ['std','file']
+        self.validSchLogLevel = ['debug','info','warn','error','critical']
         self.parser.add_argument('--schKey', metavar='', type=self.argValidate_schKey, default=lookups.defaultschKey, help='secret key code, should be less then 6 character')
         self.parser.add_argument('--schMode', metavar='', type=self.argValidate_schMode, default=lookups.defaultschMode, help='sachathya engine mode')
         self.parser.add_argument('--schLogEnable', metavar='',  type=bool, default=lookups.defaultschLogEnable, help='sachathya engine log enable')
+        self.parser.add_argument('--schLogLevel', metavar='',  type=self.argValidate_schLogLevel, default=lookups.defaultschLogLevel, help='sachathya engine log enable')        
         self.parser.add_argument('--schStdRedirect', metavar='',  type=self.argValidate_schStdRedirect, default=lookups.defaultschStdRedirect, help='sachathya engine std output redirection')
         self.parser.add_argument('--schStdRedirectLogFile', metavar='',  type=str, default=lookups.defaultschStdRedirectLogFile, help='sachathya engine std output redirection')        
         self.parser.add_argument('--schStartupScript', metavar='',  type=str, default=lookups.defaultschStartupScript, help='sachathya engine std output redirection')
         self.parser.add_argument('--schScriptFolder', metavar='',  type=str, default=lookups.defaultschScriptFolder, help='sachathya engine std output redirection')
 
+    def argValidate_schLogLevel(self, val):
+        if(val in self.validSchLogLevel):
+            return val
+        else:
+            msg = "{0} is not a valid log level among schLogLevel: {1}".format(val,self.validSchLogLevel)
+            self.sch.log.warn(msg)
+
     def argValidate_schStdRedirect(self, val):
         if(val in self.validSchStdRedirect):
             return val
         else:
-            msg = "{0} is not a valid string among schLogLevel: {1}".format(val,self.validSchStdRedirect)
+            msg = "{0} is not a valid string among redirect option: {1}".format(val,self.validSchStdRedirect)
             self.sch.log.warn(msg)
 
     def argValidate_schMode(self, val):        

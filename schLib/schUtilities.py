@@ -9,6 +9,8 @@ import sys
 from schLib import schLookups as lookups
 
 import logging as log
+import logging.config
+
 import kmxTools
 from lxml.doctestcompare import strip
 
@@ -25,6 +27,29 @@ class core(object):
         self.sch = core
         self.ttls = kmxTools.Tools()
         log.info('Utilities module loading done!')
+
+    def loggerSetup(self, level='', isEnable=1):
+        logger = log.getLogger()
+        log.basicConfig(format=lookups.logFormt,level=log.DEBUG)
+        
+        if level.lower() == 'info':
+            logger.setLevel(log.INFO)
+        elif level.lower() == 'debug':
+            logger.setLevel(log.DEBUG)
+        elif level.lower() == 'warn':
+            logger.setLevel(log.WARN)
+        elif level.lower() == 'error':
+            logger.setLevel(log.ERROR)
+        elif level.lower() == 'critical':
+            logger.setLevel(log.CRITICAL)
+        else:
+            logger.setLevel(log.NOTSET)
+                    
+        logger.disabled = not isEnable
+        logging.config.dictConfig({
+            'version': 1,
+            'disable_existing_loggers': not isEnable
+        })
 
     def isFirstTime(self):
         if not lookups.isFirstTime:
