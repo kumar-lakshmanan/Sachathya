@@ -1,2 +1,0 @@
-For complete help check the page
-https://github.com/kaymatrix/our-py-lib/tree/master/PyOneApplication
