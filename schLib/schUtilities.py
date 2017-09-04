@@ -28,6 +28,28 @@ class core(object):
         self.ttls = kmxTools.Tools()
         log.info('Utilities module loading done!')
 
+    def getWelcomeMessage(self):
+        justify = 25        
+        message = ''
+        message += 'Sachathya {version}'.format(version = lookups.versionInfo)
+        message += '\n{0}\n'.format(lookups.licInfo)
+        
+        message += '\nStart time:'.ljust(justify,'.') + self.ttls.getDateTime()
+        message += '\nSystem name:'.ljust(justify,'.') + self.ttls.getSystemName()
+        message += '\nWorking dir:'.ljust(justify,'.') + os.getcwd()        
+        message += '\nFirst time user:'.ljust(justify,'.') + str(lookups.isFirstTime)
+        message += '\nMode:'.ljust(justify,'.') + str(lookups.defaultschMode)
+        message += '\nLog enabled:'.ljust(justify,'.') + str(lookups.defaultschLogEnable)
+        message += '\nLog level:'.ljust(justify,'.') + str(lookups.defaultschLogLevel)
+        message += '\nStream redirect:'.ljust(justify,'.') + str(lookups.defaultschStdRedirect)
+        message += '\nStream redirect log:'.ljust(justify,'.') + str(lookups.defaultschStdRedirectLogFile)
+        message += '\nScript dir:'.ljust(justify,'.') + lookups.defaultschScriptFolder
+        message += '\nStartup script:'.ljust(justify,'.') + lookups.defaultschStartupScript
+        message += '\nSachathya encryption:'.ljust(justify,'.') + self.sch.schUtilitiesObj.encrypt('sachathya')        
+        message += '\nSachathya is ready!'
+        message += '\n\n'
+        return message
+
     def loggerSetup(self, level='', isEnable=1):
         logger = log.getLogger()
         log.basicConfig(format=lookups.logFormt,level=log.DEBUG)

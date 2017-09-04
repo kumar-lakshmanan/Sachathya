@@ -7,7 +7,7 @@ from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
 from PyQt5.uic import loadUi
 
 print('\n')
-from schLib import schLookups
+from schLib import schLookups as lookups
 from schLib import schLogging
 from schLib import schStandardIO
 from schLib import schArgParser
@@ -25,7 +25,7 @@ import logging as log
 import logging.config
        
 logger = log.getLogger()
-log.basicConfig(format=schLookups.logFormt,level=log.DEBUG)
+log.basicConfig(format=lookups.logFormt,level=log.DEBUG)
 logger.disabled = 1
 logging.config.dictConfig({
     'version': 1,
@@ -62,8 +62,8 @@ class core(object):
         #Security Setup
         key = self.schArgParserObj.schKey
         if (key):
-            schLookups.ciperKey = str(self.schUtilitiesObj.getCodeForKey(key)) + str(self.ttls.getUUID())
-            log.info('Key: {0}'.format(schLookups.ciperKey))   
+            lookups.ciperKey = str(self.schUtilitiesObj.getCodeForKey(key)) + str(self.ttls.getUUID())
+            log.info('Key: {0}'.format(lookups.ciperKey))   
             self.display('Ciper ready!')                     
         else:
             self.schDoExit('Secret key missing in argument.')
@@ -95,8 +95,9 @@ class core(object):
 
     def schDoStartConsole(self):
         self.display('Running sachathya console...')
+        print(self.schUtilitiesObj.getWelcomeMessage())
         sch.schInterpreterObj.simpleConsole()
-
+        
     def schDoStartConsoleApp(self):
         script = self.schArgParserObj.schStartupScript
         self.display('Running server {0}...'.format(script))

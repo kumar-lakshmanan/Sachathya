@@ -62,7 +62,7 @@ a = Analysis([appScript],
              binaries=[],
              datas=[
                  (additionalFiles,'.')
-                 ],             
+                 ],                          
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -85,6 +85,7 @@ exe = EXE(pyz,
 
 coll = COLLECT(exe,
                a.binaries,
+               Tree('./additionalFiles'),
                a.zipfiles,
                a.datas,
                strip=False,

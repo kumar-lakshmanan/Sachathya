@@ -12,12 +12,13 @@ import os
 import sys
 import logging as log
 from PyQt5.Qt import QLineEdit
-
+from schLib import schLookups as lookups
 
 class core(QtWidgets.QMainWindow):
 
 	def __init__(self, parent=None):
 		self.sch = parent
+		self.ttls = self.sch.ttls
 		QtWidgets.QMainWindow.__init__(self)		
 		self.uiFile = sys.modules[__name__].__file__
 		self.uiFile = self.uiFile.replace(".py",".ui")
@@ -30,7 +31,7 @@ class core(QtWidgets.QMainWindow):
 		self.sch.display('Output streaming redirected to gui...',self.tag)
 		self.sch.schStandardIOObj.toCustom(self)
 		self.guiDoPrepareOutput()
-		
+		self.appendDisplay(self.sch.schUtilitiesObj.getWelcomeMessage())
 		self.guiDoPrepareStatusBar()
 
 	def guiDoPrepareStatusBar(self):
@@ -45,8 +46,8 @@ class core(QtWidgets.QMainWindow):
 		self.cline.setFocus()
 		
 	def guiDoExecuteCommandLine(self):
-		val = str(self.cline.text())
-		self.appendDisplay(val+'\n')
+		val = str(self.cline.text()).strip()
+		self.appendDisplay('>>> ' + val + '\n')
 		self.sch.schInterpreterObj.runCommand(val)
 		self.cline.setText('')
 		self.cline.setFocus()
