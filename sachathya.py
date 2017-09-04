@@ -14,6 +14,7 @@ from schLib import schArgParser
 from schLib import schSettings
 from schLib import schInterpreter
 from schLib import schUtilities
+from schLib.schGUI import schGUIMainWindow
 
 import kmxTools
 import sys
@@ -50,7 +51,7 @@ class core(object):
         self.schUtilitiesObj.loggerSetup(self.schArgParserObj.schLogLevel,self.schArgParserObj.schLogEnable)
         self.schStandardIOObj = schStandardIO.core(self)     
         self.schSettingsObj = schSettings.core(self)
-        self.schInterpreterObj = schInterpreter.core(self)
+        self.schInterpreterObj = schInterpreter.core(self)        
            
         self.display("Internal modules loaded!")        
         self.schDoStart()
@@ -74,20 +75,29 @@ class core(object):
             self.display('Stream redirect to file: {0}'.format(f))
 
         #Is it a first time?
-        if self.schUtilitiesObj.isFirstTime():
-            self.schSettingsObj.saveDefaultSettings()
+        if self.schUtilitiesObj.isFirstTime():            
             self.display('First time user default settings prepared')
+            self.schSettingsObj.saveDefaultSettings()
         self.schSettingsObj.readAllSettings()
         self.display('Settings read!')
 
         #Ready Search Paths
         self.schDoAddSearchPaths()
 
+    def schDoStartGUI(self):
+        self.display('Running sachathya GUI...')
+        self.schQtApp = QtWidgets.QApplication(sys.argv)
+        self.schGUIObj = schGUIMainWindow.core(self)
+        self.schGUIObj.closeEvent = self.schDoInstanceLastAction      
+        self.schGUIObj.show()
+        self.schGUIObj.guiInitialize()
+        sys.exit(self.schQtApp.exec_())        
+
     def schDoStartConsole(self):
-        self.display('Running console...')
+        self.display('Running sachathya console...')
         sch.schInterpreterObj.simpleConsole()
 
-    def schDoStartServer(self):
+    def schDoStartConsoleApp(self):
         script = self.schArgParserObj.schStartupScript
         self.display('Running server {0}...'.format(script))
         if(script and os.path.exists(script)):
@@ -96,7 +106,7 @@ class core(object):
         else:
             self.schDoExit('Startup script not found')
     
-    def schDoStartApp(self):        
+    def schDoStartGUIApp(self):        
         script = self.schArgParserObj.schStartupScript
         self.display('Running app {0}...'.format(script))
         if(script and os.path.exists(script)):
@@ -177,8 +187,10 @@ if __name__ == '__main__':
         #Mode Check and Start App
         if sch.schArgParserObj.schMode == 'console':            
             sch.schDoStartConsole()
+        elif(sch.schArgParserObj.schMode == 'gui'):
+            sch.schDoStartGUI()             
         elif(sch.schArgParserObj.schMode == 'consoleApp'):
-            sch.schDoStartServer()        
+            sch.schDoStartConsoleApp()        
         elif(sch.schArgParserObj.schMode == 'guiApp'):
-            sch.schDoStartApp()        
+            sch.schDoStartGUIApp()        
         

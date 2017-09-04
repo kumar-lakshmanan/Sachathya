@@ -26,7 +26,7 @@ class core(object):
         self.sch = core
         log.debug('Python interpreter setup loading...')
         self.ttls = kmxTools.Tools()
-        self.shConsole = code.InteractiveConsole(locals())
+        self.schConsole = code.InteractiveConsole(locals())
         log.debug('Python interpreter setup done!')
 
     def simpleCLI(self, callback=None):
@@ -53,20 +53,29 @@ class core(object):
     def simpleConsole(self):
         log.info('Starting console...')
         try:
-            self.shConsole.locals=locals()
-            self.shConsole.interact(lookups.consoleBanner)
+            self.schConsole.locals=locals()            
+            self.schConsole.interact(lookups.consoleBanner)
         except:
             self.ttls.errorInfo()
+
+    def runCommand(self, codeStr):
+        log.info('Executing gui command...')
+        codeStr = codeStr.strip()
+        if(codeStr):
+            try:
+                self.schConsole.locals['dev'] = self.sch
+                self.schConsole.runsource(codeStr, "<console>", "single")
+                time.sleep(.01)             
+            except:
+                self.ttls.errorInfo()
     
     def runCode(self, codeStr='', fileName=None):
         log.info('Executing code...')
         codeStr = codeStr.strip()
-        codeStr = codeStr.replace('\r\n', '\n')
         if(codeStr):
             try:
-                self.shConsole.locals=self.getUpdatedLocals()
-                self.shConsole.locals['dev'] = self.sch
-                self.shConsole.runsource(codeStr, fileName, 'exec')
+                self.schConsole.locals['dev'] = self.sch
+                self.schConsole.runsource(codeStr, fileName, 'exec')
                 time.sleep(.01)             
             except:
                 self.ttls.errorInfo()
