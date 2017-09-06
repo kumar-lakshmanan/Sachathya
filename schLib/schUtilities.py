@@ -30,21 +30,22 @@ class core(object):
 
     def getWelcomeMessage(self):
         justify = 25        
-        message = ''
-        message += 'Sachathya {version}'.format(version = lookups.versionInfo)
+        message = '\n'
+        message += '\nSachathya {version}'.format(version = lookups.versionInfo)
         message += '\n{0}\n'.format(lookups.licInfo)
         
         message += '\nStart time:'.ljust(justify,'.') + self.ttls.getDateTime()
         message += '\nSystem name:'.ljust(justify,'.') + self.ttls.getSystemName()
         message += '\nWorking dir:'.ljust(justify,'.') + os.getcwd()        
         message += '\nFirst time user:'.ljust(justify,'.') + str(lookups.isFirstTime)
-        message += '\nMode:'.ljust(justify,'.') + str(lookups.defaultschMode)
-        message += '\nLog enabled:'.ljust(justify,'.') + str(lookups.defaultschLogEnable)
-        message += '\nLog level:'.ljust(justify,'.') + str(lookups.defaultschLogLevel)
-        message += '\nStream redirect:'.ljust(justify,'.') + str(lookups.defaultschStdRedirect)
-        message += '\nStream redirect log:'.ljust(justify,'.') + str(lookups.defaultschStdRedirectLogFile)
-        message += '\nScript dir:'.ljust(justify,'.') + lookups.defaultschScriptFolder
-        message += '\nStartup script:'.ljust(justify,'.') + lookups.defaultschStartupScript
+        message += '\nMode:'.ljust(justify,'.') + str(self.sch.schArgParserObj.schMode)
+        message += '\nKey:'.ljust(justify,'.') + str(self.sch.schArgParserObj.schKey)
+        message += '\nLog enabled:'.ljust(justify,'.') + str(self.sch.schArgParserObj.schLogEnable)
+        message += '\nLog level:'.ljust(justify,'.') + str(self.sch.schArgParserObj.schLogLevel)
+        message += '\nStream redirect:'.ljust(justify,'.') + str(self.sch.schArgParserObj.schStdRedirect)
+        message += '\nStream redirect log:'.ljust(justify,'.') + str(self.sch.schArgParserObj.schStdRedirectLogFile)
+        message += '\nScript dir:'.ljust(justify,'.') + self.sch.schArgParserObj.schScriptFolder
+        message += '\nStartup script:'.ljust(justify,'.') + self.sch.schArgParserObj.schStartupScript
         message += '\nSachathya encryption:'.ljust(justify,'.') + self.sch.schUtilitiesObj.encrypt('sachathya')        
         message += '\nSachathya is ready!'
         message += '\n\n'

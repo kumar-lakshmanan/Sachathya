@@ -30,12 +30,8 @@ defaultschLogLevel = 'warn' #debug, info, warn, error, critical
 defaultschStdRedirect = 'std' #std, file
 defaultschStdRedirectLogFile = 'schLog.log'
 defaultschMode = 'gui'  #console, consoleApp, guiApp, gui
-#defaultschMode = 'console'  #console, consoleApp, guiApp, gui
-#defaultschMode = 'consoleApp'  #console, consoleApp, guiApp, gui
-defaultschStartupScript = 'F:/PythonWorkspace/SachathyaScripts/firstScript.py'
-#defaultschMode = 'guiApp'  #console, consoleApp, guiApp
-#defaultschStartupScript = 'F:/PythonWorkspace/SachathyaScripts/guiApp/objBrowser.py'
-defaultschScriptFolder = 'F:/PythonWorkspace/SachathyaScripts'
+defaultschStartupScript = 'SachathyaScripts/Starter.py'
+defaultschScriptFolder = 'SachathyaScripts'
 
 #Config settings lookups
 

@@ -52,21 +52,20 @@ class core(object):
             return val
         else:
             msg = "{0} is not a valid log level among schLogLevel: {1}".format(val,self.validSchLogLevel)
-            self.sch.log.warn(msg)
+            raise argparse.ArgumentTypeError(msg)
 
     def argValidate_schStdRedirect(self, val):
         if(val in self.validSchStdRedirect):
             return val
         else:
             msg = "{0} is not a valid string among redirect option: {1}".format(val,self.validSchStdRedirect)
-            self.sch.log.warn(msg)
+            raise argparse.ArgumentTypeError(msg)
 
     def argValidate_schMode(self, val):        
         if(val in self.validSchModes):
             return val
         else:
             msg = "{0} is not a valid string among schModes: {1}".format(val,self.validSchModes)
-            self.sch.log.warn(msg)
             raise argparse.ArgumentTypeError(msg)
 
     def argValidate_schKey(self, val):
@@ -74,7 +73,6 @@ class core(object):
             return val
         else:
             msg = "{0} is not less then six character schKey".format(val)
-            self.sch.log.warn(msg)
             raise argparse.ArgumentTypeError(msg)
    
     def _getValue(self,objName):

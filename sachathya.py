@@ -15,6 +15,7 @@ from schLib import schSettings
 from schLib import schInterpreter
 from schLib import schUtilities
 from schLib.schGUI import schGUIMainWindow
+from schLib import fatcow_rc
 
 import kmxTools
 import sys
@@ -91,6 +92,7 @@ class core(object):
         self.schGUIObj.closeEvent = self.schDoInstanceLastAction      
         self.schGUIObj.show()
         self.schGUIObj.guiInitialize()
+        self.schDoStartConsoleApp()
         sys.exit(self.schQtApp.exec_())        
 
     def schDoStartConsole(self):
@@ -100,12 +102,12 @@ class core(object):
         
     def schDoStartConsoleApp(self):
         script = self.schArgParserObj.schStartupScript
-        self.display('Running server {0}...'.format(script))
+        self.display('Running script {0}...'.format(script))
         if(script and os.path.exists(script)):
             script = os.path.abspath(script)
             self.schInterpreterObj.runScript(script)
         else:
-            self.schDoExit('Startup script not found')
+            self.schDoExit('Startup script not found: {0}'.format(script))
     
     def schDoStartGUIApp(self):        
         script = self.schArgParserObj.schStartupScript
@@ -142,6 +144,9 @@ class core(object):
     def schDoInstanceFirstAction(self):
         log.debug('Sachathya custom startup...')        
         self.cleanUpDone = False        
+        
+        #pass
+        
         log.debug('Sachathya custom startup completed!')
                    
     def schDoInstanceLastAction(self, *arg):
@@ -194,4 +199,5 @@ if __name__ == '__main__':
             sch.schDoStartConsoleApp()        
         elif(sch.schArgParserObj.schMode == 'guiApp'):
             sch.schDoStartGUIApp()        
+        
         
