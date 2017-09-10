@@ -3,6 +3,10 @@ Created on Aug 26, 2017
 
 @author: npn
 '''
+from PyQt5.QtCore import (QFile, QFileInfo, QPoint, QSettings, QSignalMapper, QSize, QTextStream, Qt, )
+from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QMainWindow, QMdiArea, QMessageBox, QTextEdit, QWidget, QSizePolicy)
+from PyQt5.QtGui import (QIcon, QKeySequence, QFont, QColor)
+from PyQt5.Qsci import (QsciScintilla, QsciLexerPython, QsciAPIs)
 from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
 from PyQt5.uic import loadUi
 
@@ -21,6 +25,8 @@ import kmxTools
 import sys
 import os
 import inspect
+import atexit
+import traceback
 
 import logging as log
 import logging.config
@@ -32,7 +38,10 @@ logging.config.dictConfig({
     'version': 1,
     'disable_existing_loggers': 1
 })
-               
+    
+sys.excepthook = kmxTools.errorHandler
+
+
 class core(object):
     '''
     Sachathya Core
@@ -163,11 +172,11 @@ class core(object):
         if len(arg) and arg[0].type() == 19:arg[0].accept()
 
     def display(self, msg, tag='DISPLAY'):
-        stack = inspect.stack()[1]
-        stack2 = inspect.stack()[2]
-        fileName = os.path.basename(stack[1])
-        fn = stack[3]
-        fn2 = stack2[3]
+        stack = inspect.stack()[1] if len(inspect.stack())>=2 else ''
+        stack2 = inspect.stack()[2] if len(inspect.stack())>=3 else '' 
+        fileName = os.path.basename(stack[1]) if len(stack)>=2 else ''
+        fn = stack[3] if len(stack)>=4 else ''
+        fn2 = stack2[3] if len(stack2)>=4 else ''
         ti = self.ttls.getDateTime('%Y-%m-%d %H:%M:%S,000')
         print('[{0}] {1}() - {2}() [{3}] {4}'.format(ti,fn,fn2,tag,msg))
       
@@ -187,9 +196,11 @@ class core(object):
         log.warn('Thank you for using sachathya!')
         
 if __name__ == '__main__':
+   
     with core() as sch:
         print('SachathyaInstance created!')
-
+        atexit.register(sch.schDoInstanceLastAction)
+        
         #Mode Check and Start App
         if sch.schArgParserObj.schMode == 'console':            
             sch.schDoStartConsole()

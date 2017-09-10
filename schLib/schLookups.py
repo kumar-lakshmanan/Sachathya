@@ -37,6 +37,7 @@ defaultschScriptFolder = 'SachathyaScripts'
 
 userName = None
 userEmailId = None
+disableStream = 0
 
 #Dynamic lookups
 

@@ -53,10 +53,19 @@ class core(object):
     def simpleConsole(self):
         log.info('Starting console...')
         try:
-            self.schConsole.locals=locals()            
+            self.schConsole.locals=locals()  
+            self.schConsole.locals['dev'] = self.sch
+            self.schConsole.locals['__name__'] = '__main__'          
             self.schConsole.interact(lookups.consoleBanner)
-        except:
+        except SyntaxError:
+            self.schConsole.showsyntaxerror()
             self.ttls.errorInfo()
+        except SystemExit:
+            self.schConsole.showtraceback()
+            self.ttls.errorInfo()
+        except:
+            self.schConsole.showtraceback()
+            self.ttls.errorInfo()           
 
     def runCommand(self, codeStr):
         log.info('Executing gui command...')
@@ -64,21 +73,37 @@ class core(object):
         if(codeStr):
             try:
                 self.schConsole.locals['dev'] = self.sch
+                self.schConsole.locals['__name__'] = '__main__'
                 self.schConsole.runsource(codeStr, "<console>", "single")
                 time.sleep(.01)             
-            except:
+            except SyntaxError:
+                self.schConsole.showsyntaxerror()
                 self.ttls.errorInfo()
+            except SystemExit:
+                self.schConsole.showtraceback()
+                self.ttls.errorInfo()
+            except:
+                self.schConsole.showtraceback()
+                self.ttls.errorInfo()  
     
-    def runCode(self, codeStr='', fileName=None):
+    def runCode(self, codeStr='', fileName="<input>"):
         log.info('Executing code...')
         codeStr = codeStr.strip()
         if(codeStr):
             try:
                 self.schConsole.locals['dev'] = self.sch
+                self.schConsole.locals['__name__'] = '__main__'
                 self.schConsole.runsource(codeStr, fileName, 'exec')
                 time.sleep(.01)             
-            except:
+            except SyntaxError:
+                self.schConsole.showsyntaxerror()
                 self.ttls.errorInfo()
+            except SystemExit:
+                self.schConsole.showtraceback()
+                self.ttls.errorInfo()
+            except:
+                self.schConsole.showtraceback()
+                self.ttls.errorInfo()  
                 
     def runScript(self, scriptFile=None):
         log.info('Trying to execute script file... %s' % scriptFile)

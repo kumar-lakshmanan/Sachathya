@@ -28,21 +28,23 @@ class core(object):
     def saveDefaultSettings(self):
         log.info('Preparing config file with default settings')
         self.writeSetting('userName', 'Enter Your Name', 'General')
-        self.writeSetting('userEmailId', 'Enter Your Name Email Id', 'General')        
+        self.writeSetting('userEmailId', 'Enter Your Name Email Id', 'General')
+        self.writeSetting('disableStream', 0, 'GUI')        
         self.storeConfig()
  
     def readAllSettings(self):
         log.info('Reading config file for settings')
         lookups.userName = self.readSetting('userName', 'General')
         lookups.userEmailId = self.readSetting('userEmailId', 'General')
+        lookups.disableStream = self.readSetting('disableStream','GUI',0) 
         log.info('Reading config file completd!')
         
-    def readSetting(self, option, section='General'):
+    def readSetting(self, option, section='General', default=None):
         if (self.cfg.has_section(section) and self.cfg.has_option(section, option)):            
             return self.cfg.get(section, option)
         else:
             log.error('{0} missing or {0} has no option {1}'.format(section,option))
-            return None
+            return default
                     
     def writeSetting(self, option, value=None, section='General'):
         if (not self.cfg.has_section(section)):            
