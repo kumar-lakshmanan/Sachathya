@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "F:\PythonWorkspace\Sachathya\schLib\schInterpreter.py", line 96, in runCode
+    self.schConsole.runsource(codeStr, fileName, 'exec')
+  File "C:\Python34\lib\code.py", line 74, in runsource
+    self.runcode(code)
+  File "C:\Python34\lib\code.py", line 90, in runcode
+    exec(code, self.locals)
+  File "localRunGUIApp.py", line 21, in <module>
+    sys.exit(dev.schQtApp.exec_())
+SystemExit: -1

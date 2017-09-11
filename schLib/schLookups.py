@@ -38,6 +38,7 @@ defaultschScriptFolder = 'SachathyaScripts'
 userName = None
 userEmailId = None
 disableStream = 0
+pyDesigner = 'C:\\Python34\\Lib\\site-packages\\PyQt5\\designer.exe'
 
 #Dynamic lookups
 

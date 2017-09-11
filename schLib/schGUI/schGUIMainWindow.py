@@ -15,7 +15,8 @@ from PyQt5.Qt import QLineEdit
 from schLib import schLookups as lookups
 from schLib import fatcow_rc
 from schLib.schGUI import schPythonEditor
-
+import subprocess
+import time
 
 import kmxQtCommonTools
 import kmxQtTreeWidget
@@ -112,14 +113,22 @@ class core(QtWidgets.QMainWindow):
 		self.itm = self.treeWidget.itemAt(point)
 		if self.itm:
 			label = str(self.itm.text(0))
-			data = str(self.itm.data(0, QtCore.Qt.UserRole))
+			fileFolder = str(self.itm.data(0, QtCore.Qt.UserRole))
 			typ = str(self.itm.data(0, QtCore.Qt.UserRole+1))
+			
 			if(typ=='file'):
-				menu = ['Execute','Edit','','|Delete']
+				if (self.hasGUI(fileFolder)):
+					menu = ['Execute','','Edit Script','Edit GUI','','Delete']
+				else:
+					menu = ['Execute','','Edit Script','|Edit GUI','','Delete']
 			elif(typ=='dir'):
-				menu = ['Create GUI Script...','Create Console Script...','','Create Folder...','','|Delete']
+				menu = ['Create GUI Script...','Create Console Script...','','Create Folder...']
 
 		self.cmttls.popUpMenu(self.treeWidget, point, menu, self.guiDoTreeOperations,self.itm)
+	
+	def hasGUI(self,nFileName=None):
+		nFileName = nFileName.replace('py','ui')
+		return os.path.isfile(nFileName) and os.path.exists(nFileName)
 
 	def guiDoTreeOperations(self, arg):
 		menuName = arg[0]
@@ -133,10 +142,67 @@ class core(QtWidgets.QMainWindow):
 		
 		if(menuName == 'Execute'):
 			self._coreDoActions('Execute', fileName)
-		elif(menuName == 'Edit'):
+		elif(menuName == 'Edit Script'):
 			self.guiDoCreateEditor(fileName)
+		elif(menuName == 'Edit GUI'):
+			self.guiDoLaunchUIEditor(fileName)			
+		elif(menuName == 'Create Console Script...'):
+			self.guiDoCreateNewConsoleScript(fileName)
+			self.scriptHandlerObj.loadScripts()	
+		elif(menuName == 'Create GUI Script...'):
+			self.guiDoCreateNewGUIScript(fileName)
+			self.scriptHandlerObj.loadScripts()	
+		elif(menuName == 'Delete'):
+			self.guiDoDelete(fileName)
+			self.scriptHandlerObj.loadScripts()	
 			
-						
+	def guiDoDelete(self, typ, fileFolder):
+		if(typ=='file'):
+			file1 = fileFolder
+			file2 = fileFolder.replace('py','ui') if self.hasGUI(fileFolder) else None
+			try:
+				if(file1 and os.path.exists(file1)):
+					print("Deleting..." + file1)
+					os.remove(file1)
+				if(file2 and os.path.exists(file2)):
+					print("Deleting..." + file2)
+					os.remove(file2)
+			except:
+				self.ttls.errorInfo()   
+			
+	def guiDoCreateNewGUIScript(self,loc):
+		folder = os.path.abspath(loc)
+		val = self.cmttls.showInputBox('GUI Script','Enter module name','newGUIModule')
+		if(val):
+			newPYFile = os.path.join(folder,val+'.py')
+			newUIFile = os.path.join(folder,val+'.ui')
+
+			templateFile = os.path.abspath('templateGUIScript.py')			
+			content = self.sch.ttls.fileContent(templateFile)
+			content = content.replace('myClass',val)
+			self.sch.ttls.writeFileContent(newPYFile, content)
+			
+			templateFile = os.path.abspath('templateGUIScript.ui')			
+			content = self.sch.ttls.fileContent(templateFile)
+			content = content.replace('myClass',val)
+			self.sch.ttls.writeFileContent(newUIFile, content)
+			
+	def guiDoCreateNewConsoleScript(self,loc):
+		folder = os.path.abspath(loc)
+		val = self.cmttls.showInputBox('Console Script','Enter module name','newModule')
+		if(val):
+			newFile = os.path.join(folder,val+'.py')
+			templateFile = os.path.abspath('templateConsoleScript.py')			
+			content = self.sch.ttls.fileContent(templateFile)
+			content = content.replace('myClass',val)
+			self.sch.ttls.writeFileContent(newFile, content)
+
+	def guiDoLaunchUIEditor(self, fileName):
+		fileName = fileName.replace('py','ui')
+		args = '"' + lookups.pyDesigner + '"' + " " + '"' + fileName + '"'
+		print("Launching UI Editor: (" + args + ")")
+		QtWidgets.QApplication.processEvents()  
+		subprocess.call(args)  		
 
 	def guiDoMDIRightClick(self, point):
 		self.mdiMenu = ['New','Open...','','Quit']
@@ -152,7 +218,7 @@ class core(QtWidgets.QMainWindow):
 			self.guiDoCreateEditor()
 		elif(menuName == 'Open...'):
 			fileName = self.cmttls.getFile('Select python script to open...', self.sch.schArgParserObj.schScriptFolder, 'Python (*.py);;All Files(*)')
-			self.guiDoCreateEditor(fileName)
+			if(fileName):self.guiDoCreateEditor(fileName)
 		elif(menuName == 'Quit'):
 			self.close()
 			
