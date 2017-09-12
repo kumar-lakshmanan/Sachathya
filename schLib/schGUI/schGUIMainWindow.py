@@ -20,11 +20,13 @@ import time
 
 import kmxQtCommonTools
 import kmxQtTreeWidget
+from _operator import add
 
 
 class core(QtWidgets.QMainWindow):
 
 	def __init__(self, parent=None):
+		log.info('Preparing GUI...')
 		self.sch = parent
 		self.ttls = self.sch.ttls
 		self.tag = 'SchGUI'
@@ -46,10 +48,20 @@ class core(QtWidgets.QMainWindow):
 			self.appendDisplay(info)
 			
 		self.guiDoAlterAndUpdateUI()
-		self.guiDoInitializeScriptLister()
-
-	def guiDoAlterAndUpdateUI(self):
+		self.guiDoInitializeScriptLister()		
+		self.guiDoRunGUIStarterScript()
 		
+		self.sch.display('Sachathya is ready!',self.tag)
+
+	def guiDoRunGUIStarterScript(self):
+		self.sch.display('Running default startup script... ' + str(lookups.schStartupScript), self.tag)
+		self._coreDoActions('Execute',lookups.schStartupScript)
+				
+		self.sch.display('Running GUI startup script... ' + str(lookups.guiStartUpScript), self.tag)
+		self._coreDoActions('Execute',lookups.guiStartUpScript)
+				
+	def guiDoAlterAndUpdateUI(self):
+		log.info('GUI alter and update...')
 		# Output window tweak
 		self.qsciStreamOut.setEolMode(Qsci.QsciScintilla.EolWindows)
 		self.qsciStreamOut.setMarginWidth(1, 0)        
@@ -63,7 +75,7 @@ class core(QtWidgets.QMainWindow):
 		self.qsciStreamOut.setSelectionBackgroundColor(QColor('#ffffff'))
 		
 		#Display basic info
-		self.appendDisplay(self.sch.schUtilitiesObj.getWelcomeMessage())
+		self.appendDisplay(self.sch.schUtilitiesObj.getWelcomeGUIMessage())
 		self.sch.display('GUI Update is in progress...',self.tag)
 		
 		#Prepare the status bar
@@ -91,9 +103,10 @@ class core(QtWidgets.QMainWindow):
 	def _coreDoActions(self, todo, arg1=''):
 		if(todo=='Execute'):
 			fileName = arg1
-			data = self.ttls.fileContent(fileName)
-			self.sch.display('Executing script... ' + fileName, self.tag)
-			self.sch.schInterpreterObj.runScript(fileName)
+			if(fileName and os.path.isfile(fileName) and os.path.exists(fileName)):
+				data = self.ttls.fileContent(fileName)
+				self.sch.display('Executing script... ' + fileName, self.tag)
+				self.sch.schInterpreterObj.runScript(fileName)
 
 	def guiDoScriptListerDoubleClick(self, itm):
 		label = str(itm.text(0))
@@ -109,7 +122,7 @@ class core(QtWidgets.QMainWindow):
 				self._coreDoActions('Execute',fileFolderName)
 		
 	def guiDoScriptListerRightClick(self, point):
-		menu = ['Create folder','Open script folder','','Refresh']
+		menu = ['Create Folder...','Open Scripts Folder','','Refresh']
 		self.itm = self.treeWidget.itemAt(point)
 		if self.itm:
 			label = str(self.itm.text(0))
@@ -136,9 +149,14 @@ class core(QtWidgets.QMainWindow):
 		menuItem = arg[2]
 		addItem = arg[3]
 
-		label = str(addItem.text(0))
-		fileName = str(addItem.data(0, QtCore.Qt.UserRole))
-		typ = str(addItem.data(0, QtCore.Qt.UserRole+1))
+		if(addItem):
+			label = str(addItem.text(0))
+			fileName = str(addItem.data(0, QtCore.Qt.UserRole))
+			typ = str(addItem.data(0, QtCore.Qt.UserRole+1))
+		else:
+			label = ''
+			fileName = lookups.schScriptFolder
+			typ = ''
 		
 		if(menuName == 'Execute'):
 			self._coreDoActions('Execute', fileName)
@@ -152,11 +170,33 @@ class core(QtWidgets.QMainWindow):
 		elif(menuName == 'Create GUI Script...'):
 			self.guiDoCreateNewGUIScript(fileName)
 			self.scriptHandlerObj.loadScripts()	
+		elif(menuName == 'Create Folder...'):
+			self.guiDoCreateNewFolder(fileName)
 		elif(menuName == 'Delete'):
 			self.guiDoDelete(fileName)
 			self.scriptHandlerObj.loadScripts()	
-			
+		elif(menuName == 'Refresh'):
+			self.scriptHandlerObj.loadScripts()	
+		elif(menuName == 'Open Scripts Folder'):
+			self.guiDoOpenScriptsFolder()	
+	
+	def guiDoOpenScriptsFolder(self):
+		command = 'explorer "{0}"'.format(lookups.schScriptFolder)
+		self.sch.display('Executing Shell: ' + command)
+		self.cmttls.shellExecute(command)  		
+		
+	def guiDoCreateNewFolder(self, loc):
+		log.info('Create folder requested ' + str(loc))
+		folder = os.path.abspath(loc)
+		val = self.cmttls.showInputBox('New Folder','Enter folder name','mySplPack')
+		if(val):
+			folder = os.path.join(folder,val)
+			log.info('Creating folder... ' + str(folder))
+			os.mkdir(folder)
+			log.info('Done')
+		
 	def guiDoDelete(self, typ, fileFolder):
+		log.info('Delete item requested ' + str(fileFolder))
 		if(typ=='file'):
 			file1 = fileFolder
 			file2 = fileFolder.replace('py','ui') if self.hasGUI(fileFolder) else None
@@ -171,6 +211,7 @@ class core(QtWidgets.QMainWindow):
 				self.ttls.errorInfo()   
 			
 	def guiDoCreateNewGUIScript(self,loc):
+		log.info('Create item requested ' + str(loc))
 		folder = os.path.abspath(loc)
 		val = self.cmttls.showInputBox('GUI Script','Enter module name','newGUIModule')
 		if(val):
@@ -188,6 +229,7 @@ class core(QtWidgets.QMainWindow):
 			self.sch.ttls.writeFileContent(newUIFile, content)
 			
 	def guiDoCreateNewConsoleScript(self,loc):
+		log.info('Create item console script requested ' + str(loc))
 		folder = os.path.abspath(loc)
 		val = self.cmttls.showInputBox('Console Script','Enter module name','newModule')
 		if(val):
@@ -198,11 +240,10 @@ class core(QtWidgets.QMainWindow):
 			self.sch.ttls.writeFileContent(newFile, content)
 
 	def guiDoLaunchUIEditor(self, fileName):
+		log.info('Launch UI Editor requested ' + str(fileName))
 		fileName = fileName.replace('py','ui')
-		args = '"' + lookups.pyDesigner + '"' + " " + '"' + fileName + '"'
-		print("Launching UI Editor: (" + args + ")")
-		QtWidgets.QApplication.processEvents()  
-		subprocess.call(args)  		
+		command = '"' + lookups.pyDesigner + '"' + " " + '"' + fileName + '"'
+		self.cmttls.shellExecute(command)  
 
 	def guiDoMDIRightClick(self, point):
 		self.mdiMenu = ['New','Open...','','Quit']
@@ -217,16 +258,18 @@ class core(QtWidgets.QMainWindow):
 		if(menuName == 'New'):
 			self.guiDoCreateEditor()
 		elif(menuName == 'Open...'):
-			fileName = self.cmttls.getFile('Select python script to open...', self.sch.schArgParserObj.schScriptFolder, 'Python (*.py);;All Files(*)')
+			fileName = self.cmttls.getFile('Select python script to open...', lookups.schScriptFolder, 'Python (*.py);;All Files(*)')
 			if(fileName):self.guiDoCreateEditor(fileName)
 		elif(menuName == 'Quit'):
 			self.close()
 			
 	def guiDoInitializeScriptLister(self):
+		log.info('Script initial loading starts ')
 		self.scriptHandlerObj = scriptsHandler(self, self.sch)
 		self.scriptHandlerObj.loadScripts()				
 
 	def guiDoCreateEditor(self,fileName=None):
+		log.info('Creating new editor ' + str(fileName))
 		editor = schPythonEditor.core(self,self.sch)
 		editor.initialize(fileName)
 		self.mdiArea.addSubWindow(editor)
@@ -234,6 +277,7 @@ class core(QtWidgets.QMainWindow):
 		return editor		
 					
 	def guiDoExecuteCommandLine(self):
+		log.info('Executing command line ')
 		val = str(self.cline.text()).strip()
 		self.appendDisplay('>>> ' + val + '\n')
 		self.sch.schInterpreterObj.runCommand(val)
@@ -283,7 +327,7 @@ class scriptsHandler():
 	
 	def loadScripts(self):
 		self.win.treeWidget.clear()	
-		scriptsPath = self.sch.schArgParserObj.schScriptFolder
+		scriptsPath = lookups.schScriptFolder
 		self.sch.display('Loading Scripts...',self.tag)
 		for eachItem in os.listdir(scriptsPath):
 			currentDirName = eachItem
@@ -298,7 +342,7 @@ class scriptsHandler():
 				else:
 					self.createScriptItem(currentDirPath)	
 						
-		print("Scripts Loaded!")
+		self.sch.display("Scripts Loaded!",self.tag)
 												
 	def populateCore(self, parentItem, searchPath):					  
 		
@@ -316,13 +360,15 @@ class scriptsHandler():
 					self.createScriptItem(currentDirPath, parentItem)   
 
 	def createScriptItem(self, plugFile, parentTreeItem=None):
+		log.debug('Found script...' + str(plugFile))
 		modName = os.path.basename(plugFile).replace(os.path.splitext(plugFile)[1], '')
 		content = self.ttls.fileContent(plugFile)
-		expecting = "d" 
-		if(expecting in content and self._runFileFilter(plugFile)):
+		expecting = "sachathya" 
+		if(expecting.lower() in content.lower() and self._runFileFilter(plugFile)):
 			item = self.qtTree.createItem(modName, plugFile)
 			item.setData(0, QtCore.Qt.UserRole+1, QtCore.QVariant('file'))
 			self.cmttls.setIconForItem(item,self.iconScript)
+			log.debug('Adding script...' + str(plugFile))
 			if(parentTreeItem is None):
 				plugTreeItem = self.qtTree.addNewRoot(self.win.treeWidget, item)
 			else:

@@ -9,6 +9,7 @@ from PyQt5.QtGui import (QIcon, QKeySequence, QFont, QColor)
 from PyQt5.Qsci import (QsciScintilla, QsciLexerPython, QsciAPIs)
 from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
 from PyQt5.uic import loadUi
+from schLib import schLookups as lookups
 
 import os,sys
 
@@ -69,7 +70,7 @@ class core(QsciScintilla):
         self.apis.prepare()                  
     
     def initialize(self, scriptFileName=''):
-        self.sch.display('Python editor connections...',self.tag)
+        self.sch.display('Preparing new python editor...',self.tag)
         self.cmttls.enableRightClick(self)
         self.cmttls.connectToRightClick(self, self.guiDoRightClick)
         self.isSaved=False
@@ -79,12 +80,14 @@ class core(QsciScintilla):
             self.isNew = 1
             self.setWindowTitle('New Script')
             self.scriptName = "New Script"
+            self.sch.display('Blank',self.tag)
         else:
             self.isNew = 0
             content = self.ttls.fileContent(self.scriptFileName)
             self.setText(content)
             self.scriptName = os.path.basename(self.scriptFileName)
             self.setWindowTitle(self.scriptName)
+            self.sch.display(self.scriptFileName,self.tag)
 
     def guiDoRightClick(self, point):
         self.menu = ['Execute','','Save','Save As...']
@@ -117,22 +120,21 @@ class core(QsciScintilla):
             self.close()
             self.win.mdiArea.removeSubWindow(self)
             
-            
         elif(todo == 'Save' and not self.isSaved):
             if (self.isNew):
-                fileName = self.cmttls.getFileToSave('Save python script file...', self.sch.schArgParserObj.schScriptFolder, 'Python (*.py);;All Files(*)')
+                fileName = self.cmttls.getFileToSave('Save python script file...', lookups.schScriptFolder, 'Python (*.py);;All Files(*)')
                 if(fileName):self._coreSave(fileName)
             else:
                 self._coreSave(self.scriptFileName)
                 
         elif(todo == 'Save As...'):
-            fileName = self.cmttls.getFileToSave('Save python script file...', self.sch.schArgParserObj.schScriptFolder, 'Python (*.py);;All Files(*)')
+            fileName = self.cmttls.getFileToSave('Save python script file...', lookups.schScriptFolder, 'Python (*.py);;All Files(*)')
             if(fileName): self._coreSave(fileName)
 
     def _confirmAndSave(self):
         res = self.cmttls.showYesNoBox('File not saved', 'Script file not yet saved. Do you want to save the file?')
         if(res and self.isNew):
-            fileName = self.cmttls.getFileToSave('Save python script file...', self.sch.schArgParserObj.schScriptFolder, 'Python (*.py);;All Files(*)')
+            fileName = self.cmttls.getFileToSave('Save python script file...', lookups.schScriptFolder, 'Python (*.py);;All Files(*)')
             if(fileName): self._coreSave(fileName)
         elif(res and not self.isNew):    
                 self._coreSave(self.scriptFileName)

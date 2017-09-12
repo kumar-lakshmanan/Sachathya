@@ -16,6 +16,7 @@ class core(object):
         '''
         schArgParser Core Constructor
         '''        
+        self.tag ='ARGPARSER'
         self.sch=core
         log.debug('Commandline parser setup loading...')
         self.parser = argparse.ArgumentParser(description=lookups.licInfo , epilog=lookups.contactInfo, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -24,28 +25,30 @@ class core(object):
         log.debug('Commandline parser setup done!')        
     
     def readArguments(self):
+        log.info('Reading argumnets...')
         self.args = self.parser.parse_args()
-        self.schKey = self._getValue('schKey')        
-        self.schMode = self._getValue('schMode')
-        self.schLogEnable = self._getValue('schLogEnable')
-        self.schLogLevel = self._getValue('schLogLevel')
-        self.schStdRedirect = self._getValue('schStdRedirect')
-        self.schStdRedirectLogFile = self._getValue('schStdRedirectLogFile')
-        self.schStartupScript = self._getValue('schStartupScript')
-        self.schScriptFolder = self._getValue('schScriptFolder')
+        lookups.schKey = self._getValue('schKey')        
+        lookups.schMode = self._getValue('schMode')
+        lookups.schLogEnable = self._getValue('schLogEnable')
+        lookups.schLogLevel = self._getValue('schLogLevel')
+        lookups.schStdRedirect = self._getValue('schStdRedirect')
+        lookups.schStdRedirectLogFile = self._getValue('schStdRedirectLogFile')
+        lookups.schStartupScript = self._getValue('schStartupScript')
+        lookups.schScriptFolder = self._getValue('schScriptFolder')
             
     def addArguments(self):
+        log.info('Preparing argumnets...')
         self.validSchModes = ['console','gui','consoleApp','guiApp']
         self.validSchStdRedirect = ['std','file']
         self.validSchLogLevel = ['debug','info','warn','error','critical']
-        self.parser.add_argument('--schKey', metavar='', type=self.argValidate_schKey, default=lookups.defaultschKey, help='secret key code, should be less then 6 character')
-        self.parser.add_argument('--schMode', metavar='', type=self.argValidate_schMode, default=lookups.defaultschMode, help='sachathya engine mode')
-        self.parser.add_argument('--schLogEnable', metavar='',  type=bool, default=lookups.defaultschLogEnable, help='sachathya engine log enable')
-        self.parser.add_argument('--schLogLevel', metavar='',  type=self.argValidate_schLogLevel, default=lookups.defaultschLogLevel, help='sachathya engine log enable')        
-        self.parser.add_argument('--schStdRedirect', metavar='',  type=self.argValidate_schStdRedirect, default=lookups.defaultschStdRedirect, help='sachathya engine std output redirection')
-        self.parser.add_argument('--schStdRedirectLogFile', metavar='',  type=str, default=lookups.defaultschStdRedirectLogFile, help='sachathya engine std output redirection')        
-        self.parser.add_argument('--schStartupScript', metavar='',  type=str, default=lookups.defaultschStartupScript, help='sachathya engine std output redirection')
-        self.parser.add_argument('--schScriptFolder', metavar='',  type=str, default=lookups.defaultschScriptFolder, help='sachathya engine std output redirection')
+        self.parser.add_argument('--schKey', metavar='', type=self.argValidate_schKey, default=lookups.schKey, help='secret key code, should be less then 6 character')
+        self.parser.add_argument('--schMode', metavar='', type=self.argValidate_schMode, default=lookups.schMode, help='sachathya engine mode')
+        self.parser.add_argument('--schLogEnable', metavar='',  type=bool, default=lookups.schLogEnable, help='sachathya engine log enable')
+        self.parser.add_argument('--schLogLevel', metavar='',  type=self.argValidate_schLogLevel, default=lookups.schLogLevel, help='sachathya engine log enable')        
+        self.parser.add_argument('--schStdRedirect', metavar='',  type=self.argValidate_schStdRedirect, default=lookups.schStdRedirect, help='sachathya engine std output redirection')
+        self.parser.add_argument('--schStdRedirectLogFile', metavar='',  type=str, default=lookups.schStdRedirectLogFile, help='sachathya engine std output redirection')        
+        self.parser.add_argument('--schStartupScript', metavar='',  type=str, default=lookups.schStartupScript, help='sachathya engine std output redirection')
+        self.parser.add_argument('--schScriptFolder', metavar='',  type=str, default=lookups.schScriptFolder, help='sachathya engine std output redirection')
 
     def argValidate_schLogLevel(self, val):
         if(val in self.validSchLogLevel):

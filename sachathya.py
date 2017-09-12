@@ -10,9 +10,7 @@ from PyQt5.Qsci import (QsciScintilla, QsciLexerPython, QsciAPIs)
 from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
 from PyQt5.uic import loadUi
 
-print('\n')
 from schLib import schLookups as lookups
-from schLib import schLogging
 from schLib import schStandardIO
 from schLib import schArgParser
 from schLib import schSettings
@@ -41,7 +39,6 @@ logging.config.dictConfig({
     
 sys.excepthook = kmxTools.errorHandler
 
-
 class core(object):
     '''
     Sachathya Core
@@ -58,7 +55,7 @@ class core(object):
         log.info('Loading internal modules...')
         self.schUtilitiesObj = schUtilities.core(self)
         self.schArgParserObj = schArgParser.core(self)
-        self.schUtilitiesObj.loggerSetup(self.schArgParserObj.schLogLevel,self.schArgParserObj.schLogEnable)
+        self.schUtilitiesObj.loggerSetup(lookups.schLogLevel,lookups.schLogEnable)
         self.schStandardIOObj = schStandardIO.core(self)     
         self.schSettingsObj = schSettings.core(self)
         self.schInterpreterObj = schInterpreter.core(self)        
@@ -70,21 +67,23 @@ class core(object):
         self.display("Starting initial setup...")
         
         #Security Setup
-        key = self.schArgParserObj.schKey
-        if (key):
-            lookups.ciperKey = str(self.schUtilitiesObj.getCodeForKey(key)) + str(self.ttls.getUUID())
+        self.display("Ciper check...")
+        if (lookups.schKey):
+            lookups.ciperKey = str(self.schUtilitiesObj.getCodeForKey(lookups.schKey)) + str(self.ttls.getUUID())
             log.info('Key: {0}'.format(lookups.ciperKey))   
             self.display('Ciper ready!')                     
         else:
             self.schDoExit('Secret key missing in argument.')
         
         #StdOutput Setup
-        if(self.schArgParserObj.schStdRedirect=="file" and self.schArgParserObj.schMode != 'console'):
-            f = self.schArgParserObj.schStdRedirectLogFile
-            self.schStandardIOObj.toFile(f)
+        self.display("Stream redirect check...")
+        if(lookups.schStdRedirect=="file" and lookups.schMode != 'console'):
+            f = lookups.schStdRedirectLogFile
             self.display('Stream redirect to file: {0}'.format(f))
+            self.schStandardIOObj.toFile(f)
 
         #Is it a first time?
+        self.display("Settings file check...")
         if self.schUtilitiesObj.isFirstTime():            
             self.display('First time user default settings prepared')
             self.schSettingsObj.saveDefaultSettings()
@@ -92,6 +91,7 @@ class core(object):
         self.display('Settings read!')
 
         #Ready Search Paths
+        self.display("Search paths check...")
         self.schDoAddSearchPaths()
 
     def schDoStartGUI(self):
@@ -101,7 +101,6 @@ class core(object):
         self.schGUIObj.closeEvent = self.schDoInstanceLastAction      
         self.schGUIObj.show()
         self.schGUIObj.guiInitialize()
-        self.schDoStartConsoleApp()
         sys.exit(self.schQtApp.exec_())        
 
     def schDoStartConsole(self):
@@ -110,17 +109,19 @@ class core(object):
         sch.schInterpreterObj.simpleConsole()
         
     def schDoStartConsoleApp(self):
-        script = self.schArgParserObj.schStartupScript
-        self.display('Running script {0}...'.format(script))
+        script = lookups.schStartupScript
+        print(self.schUtilitiesObj.getWelcomeMessage())
+        self.display('Running console app {0}...'.format(script))
         if(script and os.path.exists(script)):
             script = os.path.abspath(script)
             self.schInterpreterObj.runScript(script)
         else:
-            self.schDoExit('Startup script not found: {0}'.format(script))
+            self.schDoExit('Console app not found: {0}'.format(script))
     
     def schDoStartGUIApp(self):        
-        script = self.schArgParserObj.schStartupScript
-        self.display('Running app {0}...'.format(script))
+        script = lookups.schStartupScript
+        print(self.schUtilitiesObj.getWelcomeMessage())
+        self.display('Running gui app {0}...'.format(script))
         if(script and os.path.exists(script)):
             script = os.path.abspath(script)
             self.schQtApp = QtWidgets.QApplication(sys.argv)
@@ -129,10 +130,10 @@ class core(object):
             if len(wins): wins[0].closeEvent = self.schDoInstanceLastAction                
             sys.exit(self.schQtApp.exec_())
         else:
-            self.schDoExit('App script not found')
+            self.schDoExit('GUI app not found')
                             
     def schDoAddSearchPaths(self):       
-        folder = self.schArgParserObj.schScriptFolder
+        folder = lookups.schScriptFolder
         self.display('Adding scriptfolder "{0}" to search path'.format(folder))        
         if(not folder):
             self.schDoExit('No script folder mentioned!')
@@ -146,7 +147,7 @@ class core(object):
                 self.schInterpreterObj.addToSysPath(root)
 
     def schDoExit(self, msg='Custom Exit'):
-        self.display('Exit: ' + msg)
+        self.display('Exit Triggered: ' + msg)
         log.warn(msg)
         sys.exit()
             
@@ -171,7 +172,7 @@ class core(object):
         
         if len(arg) and arg[0].type() == 19:arg[0].accept()
 
-    def display(self, msg, tag='DISPLAY'):
+    def display(self, msg, tag='MAIN'):
         stack = inspect.stack()[1] if len(inspect.stack())>=2 else ''
         stack2 = inspect.stack()[2] if len(inspect.stack())>=3 else '' 
         fileName = os.path.basename(stack[1]) if len(stack)>=2 else ''
@@ -202,13 +203,13 @@ if __name__ == '__main__':
         atexit.register(sch.schDoInstanceLastAction)
         
         #Mode Check and Start App
-        if sch.schArgParserObj.schMode == 'console':            
+        if lookups.schMode == 'console':            
             sch.schDoStartConsole()
-        elif(sch.schArgParserObj.schMode == 'gui'):
+        elif(lookups.schMode == 'gui'):
             sch.schDoStartGUI()             
-        elif(sch.schArgParserObj.schMode == 'consoleApp'):
+        elif(lookups.schMode == 'consoleApp'):
             sch.schDoStartConsoleApp()        
-        elif(sch.schArgParserObj.schMode == 'guiApp'):
+        elif(lookups.schMode == 'guiApp'):
             sch.schDoStartGUIApp()        
         
         

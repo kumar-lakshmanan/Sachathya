@@ -24,14 +24,14 @@ configFile = 'config.ini'
 
 #Default Arg lookups
 
-defaultschKey = 'net'
-defaultschLogEnable = 1
-defaultschLogLevel = 'warn' #debug, info, warn, error, critical
-defaultschStdRedirect = 'std' #std, file
-defaultschStdRedirectLogFile = 'schLog.log'
-defaultschMode = 'gui'  #console, consoleApp, guiApp, gui
-defaultschStartupScript = 'SachathyaScripts/Starter.py'
-defaultschScriptFolder = 'SachathyaScripts'
+schKey = 'net'
+schLogEnable = 1
+schLogLevel = 'warn' #debug, info, warn, error, critical
+schStdRedirect = 'std' #std, file
+schStdRedirectLogFile = 'schLog.log'
+schMode = 'gui'  #console, consoleApp, guiApp, gui
+schStartupScript = 'SachathyaScripts/Starter.py'
+schScriptFolder = 'SachathyaScripts'
 
 #Config settings lookups
 
@@ -39,6 +39,7 @@ userName = None
 userEmailId = None
 disableStream = 0
 pyDesigner = 'C:\\Python34\\Lib\\site-packages\\PyQt5\\designer.exe'
+guiStartUpScript = 'F:\\PythonWorkspace\\SachathyaScripts\\Starter.py'
 
 #Dynamic lookups
 

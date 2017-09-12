@@ -22,7 +22,8 @@ class core(object):
     def __init__(self,core=None):
         '''
         Constructor
-        '''        
+        '''       
+        self.tag='INTERPRET' 
         self.sch = core
         log.debug('Python interpreter setup loading...')
         self.ttls = kmxTools.Tools()
@@ -30,21 +31,22 @@ class core(object):
         log.debug('Python interpreter setup done!')
 
     def simpleCLI(self, callback=None):
-        log.debug('Starting simple interactive interpreter!')
+        log.info('Starting simple evaluvator...')
         for eachInput in sys.stdin:
             eachInput = str(eachInput).strip().lower()
             if(eachInput):
                 if eachInput in ['quit','exit','stop']:                
-                    self.sch.log.debug('Interactive interpreter closing!')
+                    log.info('Interactive interpreter closing!')
                     break;
                 elif callback:
-                    res = self.simpleEval(eachInput)
+                    res = self._simpleEval(eachInput)
                     callback(res)
                 else:
-                    res = self.simpleEval(eachInput)
+                    res = self._simpleEval(eachInput)
                     print(res)
 
-    def simpleEval(self, code):
+    def _simpleEval(self, code):
+        log.info('Eval Running...')
         try:
             return eval(code)
         except:
@@ -68,7 +70,7 @@ class core(object):
             self.ttls.errorInfo()           
 
     def runCommand(self, codeStr):
-        log.info('Executing gui command...')
+        log.info('Executing single command code...')
         codeStr = codeStr.strip()
         if(codeStr):
             try:
@@ -87,7 +89,7 @@ class core(object):
                 self.ttls.errorInfo()  
     
     def runCode(self, codeStr='', fileName="<input>"):
-        log.info('Executing code...')
+        log.info('Executing code string...')
         codeStr = codeStr.strip()
         if(codeStr):
             try:
@@ -114,7 +116,7 @@ class core(object):
             self.addToSysPath(basePath)
             self.runCode(data,fName)
         else:
-            log.info('Script file missing...' + scriptFile)          
+            log.info('Script file missing...' + str(scriptFile))          
                 
     def getUpdatedLocals(self):
         try:
@@ -130,7 +132,7 @@ class core(object):
         path = os.path.abspath(path)
         if('\.' in path): return None                
         if path not in sys.path and os.path.exists(path):
-            log.info("Adding path to system... " + path)
+            log.info("Adding path to system... " + str(path))
             sys.path.append(path)   
     
     
