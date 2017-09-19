@@ -50,8 +50,17 @@ class core(QtWidgets.QMainWindow):
 		self.guiDoAlterAndUpdateUI()
 		self.guiDoInitializeScriptLister()		
 		self.guiDoRunGUIStarterScript()
+		self.guiDoLoadLayout()
 		
 		self.sch.display('Sachathya is ready!',self.tag)
+	
+	def guiDoSaveLayout(self):
+		self.sch.display('Saving GUI layout... ', self.tag)
+		self.cmttls.uiLayoutSave('layout.lyt')
+
+	def guiDoLoadLayout(self):
+		self.sch.display('Loading GUI layout... ', self.tag)
+		self.cmttls.uiLayoutRestore('layout.lyt')
 
 	def guiDoRunGUIStarterScript(self):
 		self.sch.display('Running default startup script... ' + str(lookups.schStartupScript), self.tag)
@@ -173,7 +182,7 @@ class core(QtWidgets.QMainWindow):
 		elif(menuName == 'Create Folder...'):
 			self.guiDoCreateNewFolder(fileName)
 		elif(menuName == 'Delete'):
-			self.guiDoDelete(fileName)
+			self.guiDoDelete(typ,fileName)
 			self.scriptHandlerObj.loadScripts()	
 		elif(menuName == 'Refresh'):
 			self.scriptHandlerObj.loadScripts()	
@@ -363,7 +372,7 @@ class scriptsHandler():
 		log.debug('Found script...' + str(plugFile))
 		modName = os.path.basename(plugFile).replace(os.path.splitext(plugFile)[1], '')
 		content = self.ttls.fileContent(plugFile)
-		expecting = "sachathya" 
+		expecting = "for sachathya" 
 		if(expecting.lower() in content.lower() and self._runFileFilter(plugFile)):
 			item = self.qtTree.createItem(modName, plugFile)
 			item.setData(0, QtCore.Qt.UserRole+1, QtCore.QVariant('file'))

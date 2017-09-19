@@ -27,13 +27,18 @@ class core(object):
         self.sch = core
         self.ttls = kmxTools.Tools()
         log.info('Utilities module loading done!')
-
+    
+    def getSachathyaHeader(self):
+        message =''
+        message += 'Sachathya {version}'.format(version = lookups.versionInfo)
+        message += '\n{0}\n'.format(lookups.licInfo)
+        return message
+    
     def getWelcomeMessage(self):
         log.debug('Preparing welcome message...')
         justify = 25        
-        message = '\n'
-        message += '\nSachathya {version}'.format(version = lookups.versionInfo)
-        message += '\n{0}\n'.format(lookups.licInfo)
+        message = ''
+        message += self.getSachathyaHeader()
         
         message += '\nStart time:'.ljust(justify,'.') + self.ttls.getDateTime()
         message += '\nSystem name:'.ljust(justify,'.') + self.ttls.getSystemName()

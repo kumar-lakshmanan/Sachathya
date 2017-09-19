@@ -31,7 +31,7 @@ class core(object):
         self.writeSetting('userEmailId', 'Enter Your Name Email Id', 'General')
         self.writeSetting('disableStream', 0, 'GUI')        
         self.writeSetting('pyDesigner', 'C:\\Python34\\Lib\\site-packages\\PyQt5\\designer.exe', 'GUI')
-        self.writeSetting('guiStartUpScript', 'F:\\PythonWorkspace\\SachathyaScripts\\Starter.py', 'GUI')
+        self.writeSetting('guiStartUpScript', 'None', 'GUI')
         self.storeConfig()
  
     def readAllSettings(self):
@@ -40,7 +40,7 @@ class core(object):
         lookups.userEmailId = self.readSetting('userEmailId', 'General')
         lookups.disableStream = self.readSetting('disableStream','GUI',0) 
         lookups.pyDesigner = self.readSetting('pyDesigner','GUI','C:\\Python34\\Lib\\site-packages\\PyQt5\\designer.exe')
-        lookups.guiStartUpScript = self.readSetting('guiStartUpScript','GUI','F:\\PythonWorkspace\\SachathyaScripts\\Starter.py')
+        lookups.guiStartUpScript = self.readSetting('guiStartUpScript','GUI','None')
         log.info('Reading config file completd!')
         
     def readSetting(self, option, section='General', default=None):

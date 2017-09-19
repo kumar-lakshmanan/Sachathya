@@ -179,6 +179,17 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QToolBar" name="QuickTools">
+   <property name="windowTitle">
+    <string>Quick Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

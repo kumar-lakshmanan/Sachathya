@@ -5,13 +5,14 @@ import os
 __app__ = 'sachathya'
 __appName__ = 'Sachathya'
 __creater__ = 'Kumaresan Lakshmanan'
-__version__ = 0.1
 __date__ = '2017-08-27'
-__updated__ = '2017-08-29'
+__version__ = '0.4.0'
+__updated__ = '2017-09-19'
+__release__ = 'Minor'
 
 versionStr = "v%s" % __version__
 versionInfo ='%s (%s)' % (versionStr, __updated__)
-licInfo="Standalone python framework for windows automation."
+licInfo="Customized standalone python framework for windows automation."
 contactInfo = 'Contact kaymatrix@gmail.com for more info.'
 
 logFormt = '[%(asctime)s] %(module)s - %(funcName)s() [%(levelname)s] %(message)s' 
@@ -30,7 +31,7 @@ schLogLevel = 'warn' #debug, info, warn, error, critical
 schStdRedirect = 'std' #std, file
 schStdRedirectLogFile = 'schLog.log'
 schMode = 'gui'  #console, consoleApp, guiApp, gui
-schStartupScript = 'SachathyaScripts/Starter.py'
+schStartupScript = 'None'
 schScriptFolder = 'SachathyaScripts'
 
 #Config settings lookups

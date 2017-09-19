@@ -56,7 +56,7 @@ class core(object):
         log.info('Starting console...')
         try:
             self.schConsole.locals=locals()  
-            self.schConsole.locals['dev'] = self.sch
+            self.schConsole.locals['sch'] = self.sch
             self.schConsole.locals['__name__'] = '__main__'          
             self.schConsole.interact(lookups.consoleBanner)
         except SyntaxError:
@@ -74,7 +74,7 @@ class core(object):
         codeStr = codeStr.strip()
         if(codeStr):
             try:
-                self.schConsole.locals['dev'] = self.sch
+                self.schConsole.locals['sch'] = self.sch
                 self.schConsole.locals['__name__'] = '__main__'
                 self.schConsole.runsource(codeStr, "<console>", "single")
                 time.sleep(.01)             
@@ -93,7 +93,7 @@ class core(object):
         codeStr = codeStr.strip()
         if(codeStr):
             try:
-                self.schConsole.locals['dev'] = self.sch
+                self.schConsole.locals['sch'] = self.sch
                 self.schConsole.locals['__name__'] = '__main__'
                 self.schConsole.runsource(codeStr, fileName, 'exec')
                 time.sleep(.01)             

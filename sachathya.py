@@ -19,7 +19,14 @@ from schLib import schUtilities
 from schLib.schGUI import schGUIMainWindow
 from schLib import fatcow_rc
 
+import kmxINIConfigReadWrite
+import kmxQtCommonTools
+import kmxQtListWidget
+import kmxQtMenuBuilder
+import kmxQtTray
+import kmxQtTreeWidget
 import kmxTools
+
 import sys
 import os
 import inspect
@@ -161,13 +168,17 @@ class core(object):
                    
     def schDoInstanceLastAction(self, *arg):
         if(hasattr(self, 'cleanUpDone') and self.cleanUpDone):
-            self.display('Sachathya custom cleanup already completed!')
+            self.display('Sachathya cleanup already completed!')
         else:
-            self.display('Sachathya custom cleanup starting...')
+            self.display('Sachathya cleanup starting...')
+            if (hasattr(self, 'customCleanUp')):
+                self.display('Sachathya custom cleanup running...')
+                self.customCleanUp()
             
-            #pass
+            if(hasattr(self, 'schGUIObj')):
+                self.schGUIObj.guiDoSaveLayout()
             
-            self.display('Sachathya custom cleanup completed!')
+            self.display('Sachathya cleanup completed!')
             self.cleanUpDone = True
         
         if len(arg) and arg[0].type() == 19:arg[0].accept()
@@ -187,17 +198,13 @@ class core(object):
         return self        
 
     def __exit__(self, exc_type, exc_value, traceback):
-        log.warn('SachathyaInstance closing actions initiated...')
+        log.warn('SachathyaInstance exit actions initiated...')
         self.schDoInstanceLastAction()
-        
-    def __del__(self, *args, **kwargs):
-        log.warn('SachathyaInstance destroying actions initiated...')        
-        self.schDoInstanceLastAction()
-        log.warn('SachathyaInstance deleted!')
         log.warn('Thank you for using sachathya!')
         
 if __name__ == '__main__':
-   
+    
+    print ('Sachathya {version}'.format(version = lookups.versionInfo))    
     with core() as sch:
         print('SachathyaInstance created!')
         atexit.register(sch.schDoInstanceLastAction)

@@ -1,0 +1,50 @@
+2017-09-17 - Minor - 0.1.0
+New GUI Based release
+AutoRefresh Version Builder
+
+2017-09-17 - Minor - 0.2.0
+Auto Refresh Release Builder fixed
+
+2017-09-17 - Fix - 0.2.1
+Welcome Message
+
+2017-09-17 - Fix - 0.2.2
+Dev replaced with sch
+
+2017-09-17 - Fix - 0.2.3
+Template Updated
+
+2017-09-18 - Fix - 0.2.4
+Toolbar
+VerticalWindowCreate
+
+2017-09-18 - Fix - 0.2.5
+kmxQtTray
+
+2017-09-18 - Fix - 0.2.6
+Config ini update
+
+2017-09-18 - Test - 0.2.6
+objBrowser Updated
+
+2017-09-18 - Fix - 0.2.7
+Tray fix
+
+2017-09-18 - Test - 0.2.7
+General Fix
+
+2017-09-18 - Fix - 0.2.8
+Tray Updated with Click info
+
+2017-09-18 - Minor - 0.3.0
+for sachathya 
+tray and toolbar
+editor toggle
+custom actions 
+
+2017-09-18 - Fix - 0.3.1
+Delete file fix
+
+2017-09-19 - Minor - 0.4.0
+Custom Cleanup Fn added
+customCleanUp() - Override this to run while exit.

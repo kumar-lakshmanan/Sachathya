@@ -7,6 +7,7 @@ import os
 import sip
 import myClass
 
+
 class myClassCls(QtWidgets.QMainWindow):
 	
 	def __init__(self,parent):
@@ -35,8 +36,7 @@ class myClassCls(QtWidgets.QMainWindow):
 		self.sch.display("Sample: " + input, self.tag)
 
 if (__name__=="__main__"):
-	sch.devMode=0
-	if(not hasattr(sch, 'myClassObj') or sch.devMode or sip.isdeleted(sch.myClassObj)):
+	if(not hasattr(sch, 'myClassObj') or sch.devMode):
 		sch.myClassObj = myClassCls(sch)
 	sch.myClassObj.show()
 	sch.myClassObj.raise_()
