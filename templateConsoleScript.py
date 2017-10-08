@@ -13,7 +13,6 @@ class myClassCls():
 		self.sch.display("myClass initialized!", self.tag)
 
 if __name__ == '__main__':
-	sch.devMode=0
 	if(not hasattr(sch, 'myClassObj') or sch.devMode):	
 		sch.myClassObj = myClassCls(sch)
 	sch.myClassObj.initialize()

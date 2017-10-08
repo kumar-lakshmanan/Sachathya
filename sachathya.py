@@ -26,7 +26,10 @@ import kmxQtMenuBuilder
 import kmxQtTray
 import kmxQtTreeWidget
 import kmxTools
+from flask import Flask
 
+import numpy
+import pyqtgraph
 import sys
 import os
 import inspect
@@ -51,11 +54,12 @@ class core(object):
     Sachathya Core
     '''
 
-    def __init__(self):
+    def __init__(self,dummy=0):
         '''
         * All Sachathya Objects should start with sch and ends with Obj
         
         '''
+        self.dummy = dummy
         self.ttls = kmxTools.Tools()     
         
         self.display("Starting Sachathya...")
@@ -66,7 +70,7 @@ class core(object):
         self.schStandardIOObj = schStandardIO.core(self)     
         self.schSettingsObj = schSettings.core(self)
         self.schInterpreterObj = schInterpreter.core(self)        
-           
+                   
         self.display("Internal modules loaded!")        
         self.schDoStart()
 
@@ -99,7 +103,10 @@ class core(object):
 
         #Ready Search Paths
         self.display("Search paths check...")
-        self.schDoAddSearchPaths()
+        if(not self.dummy):self.schDoAddSearchPaths()
+        
+        self.display('Startup completed!')
+        print('\n')
 
     def schDoStartGUI(self):
         self.display('Running sachathya GUI...')
@@ -108,6 +115,7 @@ class core(object):
         self.schGUIObj.closeEvent = self.schDoInstanceLastAction      
         self.schGUIObj.show()
         self.schGUIObj.guiInitialize()
+        self.cmttls = self.schGUIObj.cmttls
         sys.exit(self.schQtApp.exec_())        
 
     def schDoStartConsole(self):
@@ -161,9 +169,6 @@ class core(object):
     def schDoInstanceFirstAction(self):
         log.debug('Sachathya custom startup...')        
         self.cleanUpDone = False        
-        
-        #pass
-        
         log.debug('Sachathya custom startup completed!')
                    
     def schDoInstanceLastAction(self, *arg):
@@ -197,18 +202,16 @@ class core(object):
         self.schDoInstanceFirstAction()
         return self        
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, *arg):
         log.warn('SachathyaInstance exit actions initiated...')
         self.schDoInstanceLastAction()
         log.warn('Thank you for using sachathya!')
         
 if __name__ == '__main__':
-    
-    print ('Sachathya {version}'.format(version = lookups.versionInfo))    
+    print ('Sachathya {version}'.format(version = lookups.versionInfo))
     with core() as sch:
         print('SachathyaInstance created!')
         atexit.register(sch.schDoInstanceLastAction)
-        
         #Mode Check and Start App
         if lookups.schMode == 'console':            
             sch.schDoStartConsole()
@@ -218,5 +221,3 @@ if __name__ == '__main__':
             sch.schDoStartConsoleApp()        
         elif(lookups.schMode == 'guiApp'):
             sch.schDoStartGUIApp()        
-        
-        

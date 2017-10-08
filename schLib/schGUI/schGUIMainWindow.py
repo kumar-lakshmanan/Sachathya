@@ -46,13 +46,15 @@ class core(QtWidgets.QMainWindow):
 			info += '\nContinue watching in default stream handler.'
 			self.sch.display(info,self.tag)
 			self.appendDisplay(info)
-			
+		
+		self.setWindowIcon(self.cmttls.getIcon('user_samurai.png'))
+		
 		self.guiDoAlterAndUpdateUI()
 		self.guiDoInitializeScriptLister()		
 		self.guiDoRunGUIStarterScript()
 		self.guiDoLoadLayout()
 		
-		self.sch.display('Sachathya is ready!',self.tag)
+		self.sch.display('Sachathya is ready!', self.tag)
 	
 	def guiDoSaveLayout(self):
 		self.sch.display('Saving GUI layout... ', self.tag)
@@ -72,7 +74,7 @@ class core(QtWidgets.QMainWindow):
 	def guiDoAlterAndUpdateUI(self):
 		log.info('GUI alter and update...')
 		# Output window tweak
-		self.qsciStreamOut.setEolMode(Qsci.QsciScintilla.EolWindows)
+		self.qsciStreamOut.setEolMode(Qsci.QsciScintilla.EolUnix)
 		self.qsciStreamOut.setMarginWidth(1, 0)        
 		self.qsciStreamOut.setUtf8(True)
 		self.qsciStreamOut.setEolVisibility(False)      
@@ -131,7 +133,7 @@ class core(QtWidgets.QMainWindow):
 				self._coreDoActions('Execute',fileFolderName)
 		
 	def guiDoScriptListerRightClick(self, point):
-		menu = ['Create Folder...','Open Scripts Folder','','Refresh']
+		menu = ['Create Folder...','Open Scripts Folder','Open Sachthya Folder','','Refresh']
 		self.itm = self.treeWidget.itemAt(point)
 		if self.itm:
 			label = str(self.itm.text(0))
@@ -188,6 +190,13 @@ class core(QtWidgets.QMainWindow):
 			self.scriptHandlerObj.loadScripts()	
 		elif(menuName == 'Open Scripts Folder'):
 			self.guiDoOpenScriptsFolder()	
+		elif(menuName == 'Open Sachthya Folder'):
+			self.guiDoOpenSachthyaFolder()	
+
+	def guiDoOpenSachthyaFolder(self):
+		command = 'explorer "{0}"'.format(os.path.abspath(os.curdir))
+		self.sch.display('Executing Shell: ' + command)
+		self.cmttls.shellExecute(command)  		
 	
 	def guiDoOpenScriptsFolder(self):
 		command = 'explorer "{0}"'.format(lookups.schScriptFolder)
@@ -315,14 +324,14 @@ class scriptsHandler():
 		self.cmttls = kmxQtCommonTools.CommonTools(self.win)
 		self.qtTree = kmxQtTreeWidget.TreeWidget()
 		
-		self.iconApp = 'roadworks.png'
+		
 		self.iconFolder = 'folder.png'
 		self.iconScript = 'code.png'
 		
 		self.disallowedFolder = ['__','.git']
 		self.allowedFiles = ['.py']
 		
-		self.win.setWindowIcon(self.cmttls.getIcon(self.iconApp))
+		
 	
 	def _runFolderFilter(self, folderpath):		
 		for eachFilter in self.disallowedFolder:

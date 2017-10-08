@@ -96,16 +96,13 @@ class core(object):
                 self.schConsole.locals['sch'] = self.sch
                 self.schConsole.locals['__name__'] = '__main__'
                 self.schConsole.runsource(codeStr, fileName, 'exec')
-                time.sleep(.01)             
+                time.sleep(.01)            
             except SyntaxError:
-                self.schConsole.showsyntaxerror()
-                self.ttls.errorInfo()
+                print(sys.exc_info())
             except SystemExit:
-                self.schConsole.showtraceback()
-                self.ttls.errorInfo()
+                print(sys.exc_info())
             except:
-                self.schConsole.showtraceback()
-                self.ttls.errorInfo()  
+                print(sys.exc_info())
                 
     def runScript(self, scriptFile=None):
         log.info('Trying to execute script file... %s' % scriptFile)

@@ -39,10 +39,10 @@ class core(QsciScintilla):
         self.setCaretLineBackgroundColor(QColor("#e6fff0"))
         self.setCaretLineVisible(True)
         self.setMatchedBraceBackgroundColor(Qt.yellow)
-        self.setBraceMatching(QsciScintilla.SloppyBraceMatch)        
-        self.setIndentationsUseTabs(True)
-        self.setEolMode(Qsci.QsciScintilla.EolWindows)
-        self.setTabWidth(4)        
+        self.setBraceMatching(QsciScintilla.SloppyBraceMatch)
+        self.setIndentationsUseTabs(False)
+        self.setEolMode(Qsci.QsciScintilla.EolUnix)
+        self.setTabWidth(4)
         self.setAutoIndent(True)
         
         sp = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -67,8 +67,8 @@ class core(QsciScintilla):
         for list in globals():
             self.apis.add(list)
 
-        self.apis.prepare()                  
-    
+        self.apis.prepare()    
+        
     def initialize(self, scriptFileName=''):
         self.sch.display('Preparing new python editor...',self.tag)
         self.cmttls.enableRightClick(self)

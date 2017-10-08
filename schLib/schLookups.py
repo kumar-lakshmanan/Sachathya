@@ -6,9 +6,9 @@ __app__ = 'sachathya'
 __appName__ = 'Sachathya'
 __creater__ = 'Kumaresan Lakshmanan'
 __date__ = '2017-08-27'
-__version__ = '0.4.0'
-__updated__ = '2017-09-19'
-__release__ = 'Minor'
+__version__ = '0.5.8'
+__updated__ = '2017-10-08'
+__release__ = 'Test'
 
 versionStr = "v%s" % __version__
 versionInfo ='%s (%s)' % (versionStr, __updated__)
