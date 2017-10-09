@@ -1,4 +1,4 @@
 # Sachathya
-Standalone framework for performing windows automation with help of python
+Standalone python framework for performing windows automation
 (Formarly PyOne)
 https://github.com/kaymatrix/Sachathya/blob/master/PyOne%20Presentation.pdf
