@@ -90,3 +90,9 @@ kmxTools.errorHandler fixed
 
 2017-10-08 - Test - 0.5.8
 General Fix
+
+2017-10-14 - Fix - 0.5.9
+__builtins__['sch'] added
+
+2017-10-19 - Fix - 0.5.10
+QtWebKitWidgets included

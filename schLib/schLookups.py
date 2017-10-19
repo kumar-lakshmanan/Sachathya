@@ -6,13 +6,13 @@ __app__ = 'sachathya'
 __appName__ = 'Sachathya'
 __creater__ = 'Kumaresan Lakshmanan'
 __date__ = '2017-08-27'
-__version__ = '0.5.8'
-__updated__ = '2017-10-08'
-__release__ = 'Test'
+__version__ = '0.5.10'
+__updated__ = '2017-10-19'
+__release__ = 'Fix'
 
 versionStr = "v%s" % __version__
 versionInfo ='%s (%s)' % (versionStr, __updated__)
-licInfo="Customized standalone python framework for windows automation."
+licInfo="Open-source rapid tool development framework for windows based automation using python scripting"
 contactInfo = 'Contact kaymatrix@gmail.com for more info.'
 
 logFormt = '[%(asctime)s] %(module)s - %(funcName)s() [%(levelname)s] %(message)s' 

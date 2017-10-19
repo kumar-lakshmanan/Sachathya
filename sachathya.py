@@ -211,6 +211,7 @@ if __name__ == '__main__':
     print ('Sachathya {version}'.format(version = lookups.versionInfo))
     with core() as sch:
         print('SachathyaInstance created!')
+        __builtins__.sch = sch
         atexit.register(sch.schDoInstanceLastAction)
         #Mode Check and Start App
         if lookups.schMode == 'console':            
