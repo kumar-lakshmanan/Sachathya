@@ -33,7 +33,7 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 ### Stage 2:
 * Download [SachathyaScripts.zip](distribute/SachathyaScripts.zip).
-* Extract inside the Sachathya folder. (Folder name SachathyaScripts & Sachathya.exe should be next 2 next)
+* Extract inside the Sachathya folder, Overwrite files if needed. (Folder name SachathyaScripts & Sachathya.exe should be next 2 next)
 * Restart or Start the app. with any one step mentioned in Stage 1.
 * Inside the app you should see the Sample Scripts.
 * (Optional) You can also see config.ini file present in the folder next to Sachathya.exe. Edit as per need.
@@ -41,9 +41,9 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 ### Stage 3:
 * Download [PyQt5.zip](distribute/PyQt5.zip).
-* Extract inside the Sachathya folder. (Folder name SachathyaScripts & Sachathya.exe should be next 2 next)
+* Extract inside the Sachathya folder, Overwrite files if needed. (Folder name PyQt5 & Sachathya.exe should be next 2 next)
 * Restart or Start the app. with any one step mentioned in Stage 1.
-* Inside the app you should see the Sample Scripts.
+* Now, you can right click the GUI app and click Edit GUI option.
 
 ## How to use
 
