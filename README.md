@@ -41,7 +41,7 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 ## How to use
 
-* Check the PyOne [a relative link](PyOne%20Presentation.pdf) file for full info.
+* Check this presentation to know more about [PyOne/Sachathya](PyOne%20Presentation.pdf).
 (Sachathya was formarly known as PyOne)
 
 ## License / Credits
