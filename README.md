@@ -13,10 +13,16 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 * Has builtin libs for Data processing for handling XML,XSL, JSON any ascii files.
 * Has builtin libs for graph plotting.
 
+## Downloads
+
+* Download [Sachathya.zip](distribute/Sachathya.zip)
+* Download [SachathyaScripts.zip](distribute/SachathyaScripts.zip)
+* Download [PyQt5.zip](distribute/PyQt5.zip)
+
 ## How to start
 
 ### Stage 1:
-* Download Sachathya binary zip.
+* Download [Sachathya.zip](distribute/Sachathya.zip).
 * Extract to local drive.
 * You can start the app by clicking any one of the below item inside the extract
     * Sachathya.exe
@@ -26,7 +32,7 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 ( At this moment, You won't be having any of the custom scripts inside sachathya, You may need to create script files and folders. )
 
 ### Stage 2:
-* Download SachathyaScripts zip file.
+* Download [SachathyaScripts.zip](distribute/SachathyaScripts.zip).
 * Extract inside the Sachathya folder. (Folder name SachathyaScripts & Sachathya.exe should be next 2 next)
 * Restart or Start the app. with any one step mentioned in Stage 1.
 * Inside the app you should see the Sample Scripts.
@@ -34,14 +40,14 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 ( At this moment, You will have all sample scripts. But you wont be able to edit any of the GUI app. You need PyQt Designer. You can proceed stage 3 for that. )
 
 ### Stage 3:
-* Download PyQt zip file.
+* Download [PyQt5.zip](distribute/PyQt5.zip).
 * Extract inside the Sachathya folder. (Folder name SachathyaScripts & Sachathya.exe should be next 2 next)
 * Restart or Start the app. with any one step mentioned in Stage 1.
 * Inside the app you should see the Sample Scripts.
 
 ## How to use
 
-* Check this presentation to know more about [PyOne/Sachathya](PyOne%20Presentation.pdf).
+* Check this presentation to know more about [PyOne/Sachathya](docs/PyOne%20Presentation.pdf).
 (Sachathya was formarly known as PyOne)
 
 ## License / Credits
