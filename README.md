@@ -62,19 +62,22 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 *What does Sachathya mean?*
 
-- Helpful, Servent or friend kind of.
+- Helpful, Assistance, Servent or friend kind of.
 
 Name adopted from the book Rig Veda (translation and commentary) by H. H. Wilson
 
 You can check the Sanskrit verse:
 pra mitraya praryam?e sacathyam ?tavaso | varuthya? varu?e chandya? vaca? stotra? rajasu gayata |
 
-Translation:
+Translates to:
 “O you rich in offerings, sing to Mitra, sing to Aryaman, a reverential hymn produced in the sacrificialchamber;
 sing a propitiating address to Varuna; sing a hymn of praise to the kings.”
 
+Also Hermann Grassmann (German) writes in his dictionary of the Rig Veda (Leipzig 1873) about Sachathya
+
 
 ### Reference:
+- https://wiki.yoga-vidya.de/Sachathya
 - https://www.wisdomlib.org/definition/sacathya
 - https://www.wisdomlib.org/hinduism/book/rig-veda-english-translation/d/doc837235.html
 
