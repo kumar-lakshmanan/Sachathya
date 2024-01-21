@@ -41,8 +41,8 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 ## How to use
 
-    * Check the PyOne Presentation.pdf file for full info.
-    (Sachathya was formarly known as PyOne)
+* Check the PyOne [a relative link](PyOne%20Presentation.pdf) file for full info.
+(Sachathya was formarly known as PyOne)
 
 ## License / Credits
 
@@ -62,7 +62,7 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 *What does Sachathya mean?*
 
--Helpful, Servent or friend kind of.
+- Helpful, Servent or friend kind of.
 
 Name adopted from the book Rig Veda (translation and commentary) by H. H. Wilson
 
@@ -75,6 +75,6 @@ sing a propitiating address to Varuna; sing a hymn of praise to the kings.”
 
 
 ### Reference:
-https://www.wisdomlib.org/definition/sacathya
-https://www.wisdomlib.org/hinduism/book/rig-veda-english-translation/d/doc837235.html
+- https://www.wisdomlib.org/definition/sacathya
+- https://www.wisdomlib.org/hinduism/book/rig-veda-english-translation/d/doc837235.html
 
