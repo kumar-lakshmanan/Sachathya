@@ -5,3 +5,4 @@ numpy
 flask
 requests
 pyqtgraph
+pyqt6-tools

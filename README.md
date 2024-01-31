@@ -17,7 +17,7 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 * Download [Sachathya.zip](distribute/Sachathya.zip)
 * Download [SachathyaScripts.zip](distribute/SachathyaScripts.zip)
-* Download [PyQt5.zip](distribute/PyQt5.zip)
+* Download [PyQt6.zip](distribute/PyQt6.zip)
 
 ## How to start
 
@@ -42,8 +42,8 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 ( At this moment, You will have all sample scripts. But you wont be able to edit any of the GUI app. You need PyQt Designer. You can proceed stage 3 for that. )
 
 ### Stage 3:
-* Download [PyQt5.zip](distribute/PyQt5.zip).
-* Extract inside the Sachathya folder, Overwrite files if needed. (Folder name PyQt5 & Sachathya.exe should be next 2 next)
+* Download [PyQt6.zip](distribute/PyQt6.zip).
+* Extract inside the Sachathya folder, Overwrite files if needed. (Folder name PyQt6 & Sachathya.exe should be next 2 next)
 * Restart or Start the app. with any one step mentioned in Stage 1.
 * Now, you can right click the GUI app and click Edit GUI option.
 
@@ -78,8 +78,8 @@ You can check the Sanskrit verse:
 pra mitraya praryam?e sacathyam ?tavaso | varuthya? varu?e chandya? vaca? stotra? rajasu gayata |
 
 Translates to:
-“O you rich in offerings, sing to Mitra, sing to Aryaman, a reverential hymn produced in the sacrificialchamber;
-sing a propitiating address to Varuna; sing a hymn of praise to the kings.”
+ï¿½O you rich in offerings, sing to Mitra, sing to Aryaman, a reverential hymn produced in the sacrificialchamber;
+sing a propitiating address to Varuna; sing a hymn of praise to the kings.ï¿½
 
 Also Hermann Grassmann (German) writes in his dictionary of the Rig Veda (Leipzig 1873) about Sachathya
 

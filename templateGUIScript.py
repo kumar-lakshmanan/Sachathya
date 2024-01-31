@@ -1,7 +1,7 @@
 #For Sachathya
 
-from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
-from PyQt5.uic import loadUi
+from PyQt6 import QtCore, QtGui, Qsci, QtWidgets
+from PyQt6.uic import load_ui as loadUi
 from schLib import schLookups as lookups
 import os
 import sip
@@ -22,7 +22,7 @@ class myClassCls(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)        
         self.uiFile=myClass.__file__.replace(".py",".ui")
 
-        loadUi(self.uiFile, self)
+        load_ui as loadUi(self.uiFile, self)
         self.setWindowTitle(self.__class__.__name__.replace('Cls',''))
 
         self.pushButton.clicked.connect(self.doRun)

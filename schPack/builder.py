@@ -7,8 +7,8 @@ Created on Oct 22, 2015
 import logging
 from PyInstaller.building import build_main
 from logging import getLogger
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.uic import loadUi
+from PyQt6 import QtWidgets, QtGui
+from PyQt6.uic import load_ui as loadUi
 import sys
 import imp
 
@@ -44,7 +44,7 @@ class ReleaseBuilder(QtWidgets.QDialog):
     def __init__(self, parent=None):
         self.tag = self.__class__.__name__
         QtWidgets.QDialog.__init__(self)        
-        loadUi('builder.ui', self)
+        load_ui as loadUi('builder.ui', self)
         
         self.ttls = kmxTools.Tools()
         self.doUpdatedVersionValues()

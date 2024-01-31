@@ -39,7 +39,7 @@ schScriptFolder = 'SachathyaScripts'
 userName = None
 userEmailId = None
 disableStream = 0
-pyDesigner = 'C:\\Python34\\Lib\\site-packages\\PyQt5\\designer.exe'
+pyDesigner = 'C:\\Python34\\Lib\\site-packages\\PyQt6\\designer.exe'
 guiStartUpScript = 'F:\\PythonWorkspace\\SachathyaScripts\\Starter.py'
 
 #Dynamic lookups

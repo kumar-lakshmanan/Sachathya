@@ -3,12 +3,12 @@ Created on Aug 26, 2017
 
 @author: npn
 '''
-from PyQt5.QtCore import (QFile, QFileInfo, QPoint, QSettings, QSignalMapper, QSize, QTextStream, Qt, )
-from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QMainWindow, QMdiArea, QMessageBox, QTextEdit, QWidget, QSizePolicy)
-from PyQt5.QtGui import (QIcon, QKeySequence, QFont, QColor)
-from PyQt5.Qsci import (QsciScintilla, QsciLexerPython, QsciAPIs)
-from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
-from PyQt5.uic import loadUi
+from PyQt6.QtCore import (QFile, QFileInfo, QPoint, QSettings, QSignalMapper, QSize, QTextStream, Qt, )
+from PyQt6.QtWidgets import (QApplication, QFileDialog, QMainWindow, QMdiArea, QMessageBox, QTextEdit, QWidget, QSizePolicy)
+from PyQt6.QtGui import (QAction, QIcon, QKeySequence, QFont, QColor)
+from PyQt6.Qsci import (QsciScintilla, QsciLexerPython, QsciAPIs)
+from PyQt6 import QtCore, QtGui, Qsci, QtWidgets
+from PyQt6.uic import load_ui as loadUi
 
 from schLib import schLookups as lookups
 from schLib import schStandardIO
