@@ -1,0 +1,7 @@
+PyQt6
+lxml
+PyQt6-QScintilla
+numpy
+flask
+requests
+pyqtgraph
