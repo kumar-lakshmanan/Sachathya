@@ -16,36 +16,25 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 ## Downloads
 
 * Download [Sachathya.zip](distribute/Sachathya.zip)
-* Download [SachathyaScripts.zip](distribute/SachathyaScripts.zip)
-* Download [PyQt5.zip](distribute/PyQt5.zip)
+* Download [PyQt5.zip](distribute/PyQt5.zip) (Optional)
 
 ## How to start
 
-### Stage 1:
 * Download [Sachathya.zip](distribute/Sachathya.zip).
-* Extract to local drive.
+* Extract to any of your local drive.
 * You can start the app by clicking any one of the below item inside the extract
     * Sachathya.exe
     * RunSachathya - Help.bat
     * RunSachathya - GUI.bat
     * RunSachathya - Console.bat
 
-( At this moment, You won't be having any of the custom scripts inside sachathya, You may need to create script files and folders. )
+( At this moment, You won't able to create or edit GUIs for your Python script. Proceed with next step to enable GUI Editor.)
 
-### Stage 2:
-* Download [SachathyaScripts.zip](distribute/SachathyaScripts.zip).
-* Extract inside the Sachathya folder, Overwrite files if needed. (Folder name SachathyaScripts & Sachathya.exe should be next 2 next)
-* Restart or Start the app. with any one step mentioned in Stage 1.
-* Inside the app you should see the Sample Scripts.
-* (Optional) You can also see config.ini file present in the folder next to Sachathya.exe. Edit as per need.
-
-( At this moment, You will have all sample scripts. But you wont be able to edit any of the GUI app. You need PyQt Designer. You can proceed stage 3 for that. )
-
-### Stage 3:
+### For Creating/Editing GUIs:
 * Download [PyQt5.zip](distribute/PyQt5.zip).
 * Extract inside the Sachathya folder, Overwrite files if needed. (Folder name PyQt5 & Sachathya.exe should be next 2 next)
-* Restart or Start the app. with any one step mentioned in Stage 1.
-* Now, you can right click the GUI app and click Edit GUI option.
+* Restart or Start the app.
+* Now, you can right click the GUI app scripts and click Edit GUI option.
 
 ## How to use
 

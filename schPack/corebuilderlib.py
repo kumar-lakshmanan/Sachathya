@@ -146,6 +146,7 @@ class ReleaseBuilder(QtWidgets.QDialog):
         
     def startBuilder(self):
         logger.debug("Build process starting...")
+        SchPacker.doPreProcessing()
         build_main.main(None, SchPacker.buildSpecFile, noconfirm=True, ascii=True, distpath=SchPacker.distPath, workpath=SchPacker.buildPath, clean_build=True)
         #build_main.main(self.cfg, None, noconfirm=True, ascii=True, distpath=distpath, workpath=workpath, clean_build=True)        
         logger.debug("Build Completed!")        

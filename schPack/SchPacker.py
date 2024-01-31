@@ -1,6 +1,7 @@
 schAppName = 'Sachathya'
 schSourceCodeHome = 'G:/pythoncodes/Sachathya'
 schMainEntryCode = f'{schSourceCodeHome}/sachathya.py'
+schPublishPath = f'{schSourceCodeHome}/distribute/{schAppName}.zip'
 schPackerHome = f'{schSourceCodeHome}/schPack'
 schVersionFile = f'{schSourceCodeHome}/schLib/schLookups.py'
 schVersionHistoryFile = f'{schPackerHome}/build_support/addons/VersionHistory.txt'
@@ -49,6 +50,10 @@ sys.path.append(schPackerHome)
 import kmxTools
 ttls = kmxTools.Tools()
 
+def doPreProcessing():
+    print(f'\n\nClean any existing files... {buildPath}')
+    ttls.cleanFolder(buildPath)
+
 def doPostProcessing():
     
     print(f'\n\nCopying addOn files...')
@@ -78,6 +83,9 @@ def doPostProcessing():
 
     print(f'\n\nCompressing to zip file...{outputPath}.zip')
     shutil.make_archive(outputPath, 'zip', outputPath)        
+
+    print(f'\n\nMoving ZIP for Publishing from...{schPublishPath}')
+    ttls.copyFile(outputPath+'.zip',schPublishPath)     
 
     print(f'\n\n\n--------Build Completed!--------')
     print('\n\n')
