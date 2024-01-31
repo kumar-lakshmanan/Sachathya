@@ -112,3 +112,12 @@ Clean Setup - Working Copy
 
 2024-01-31 - Minor - 0.7.0
 Compress build content to zip
+
+2024-01-31 - Minor - 0.8.0
+Modules updated
+PyQtWebEngine
+beautifulsoup4
+xmljson
+
+2024-01-31 - Fix - 0.8.1
+kmx tools fixed with abs

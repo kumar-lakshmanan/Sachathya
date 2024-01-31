@@ -9,3 +9,6 @@ requests
 pyqtgraph
 html2text
 jinja2
+PyQtWebEngine
+beautifulsoup4
+xmljson
