@@ -1,0 +1,114 @@
+2017-09-17 - Minor - 0.1.0
+New GUI Based release
+AutoRefresh Version Builder
+
+2017-09-17 - Minor - 0.2.0
+Auto Refresh Release Builder fixed
+
+2017-09-17 - Fix - 0.2.1
+Welcome Message
+
+2017-09-17 - Fix - 0.2.2
+Dev replaced with sch
+
+2017-09-17 - Fix - 0.2.3
+Template Updated
+
+2017-09-18 - Fix - 0.2.4
+Toolbar
+VerticalWindowCreate
+
+2017-09-18 - Fix - 0.2.5
+kmxQtTray
+
+2017-09-18 - Fix - 0.2.6
+Config ini update
+
+2017-09-18 - Test - 0.2.6
+objBrowser Updated
+
+2017-09-18 - Fix - 0.2.7
+Tray fix
+
+2017-09-18 - Test - 0.2.7
+General Fix
+
+2017-09-18 - Fix - 0.2.8
+Tray Updated with Click info
+
+2017-09-18 - Minor - 0.3.0
+for sachathya 
+tray and toolbar
+editor toggle
+custom actions 
+
+2017-09-18 - Fix - 0.3.1
+Delete file fix
+
+2017-09-19 - Minor - 0.4.0
+Custom Cleanup Fn added
+customCleanUp() - Override this to run while exit.
+
+2017-09-19 - Fix - 0.4.1
+CreateWindow
+
+2017-09-20 - Fix - 0.4.2
+createWindow 0- QDialog
+
+2017-09-21 - Fix - 0.4.3
+self is now self.sch
+
+2017-09-22 - Minor - 0.5.0
+Samples Scripts Updated
+
+2017-09-22 - Fix - 0.5.1
+Tray Icon Changed
+
+2017-09-23 - Fix - 0.5.2
+pyqtgraph
+
+2017-10-01 - Fix - 0.5.3
+No Console Test
+
+2017-10-01 - Fix - 0.5.4
+Open Sch Folder option in ScriptSec
+
+2017-10-02 - Fix - 0.5.5
+NewLine charater issue
+
+2017-10-02 - Test - 0.5.5
+General Fix
+
+2017-10-07 - Fix - 0.5.6
+web2py included
+
+2017-10-07 - Fix - 0.5.7
+Removed web2py and Flask included
+
+2017-10-08 - Fix - 0.5.8
+kmxTools.errorHandler fixed
+
+2017-10-08 - Test - 0.5.8
+General Fix
+
+2017-10-14 - Fix - 0.5.9
+__builtins__['sch'] added
+
+2017-10-19 - Fix - 0.5.10
+QtWebKitWidgets included
+
+2024-01-31 - Fix - 0.5.11
+reboot
+with python3.11
+
+2024-01-31 - Test - 0.5.11
+General Fix
+
+2024-01-31 - Fix - 0.5.12
+Clean Up with new packing system
+
+2024-01-31 - Minor - 0.6.0
+Clean Setup - Working Copy
+
+2024-01-31 - Minor - 0.7.0
+Compress build content to zip

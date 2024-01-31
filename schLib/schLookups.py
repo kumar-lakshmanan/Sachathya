@@ -6,9 +6,9 @@ __app__ = 'sachathya'
 __appName__ = 'Sachathya'
 __creater__ = 'Kumaresan Lakshmanan'
 __date__ = '2017-08-27'
-__version__ = '0.5.10'
-__updated__ = '2017-10-19'
-__release__ = 'Fix'
+__version__ = '0.7.0'
+__updated__ = '2024-01-31'
+__release__ = 'Minor'
 
 versionStr = "v%s" % __version__
 versionInfo ='%s (%s)' % (versionStr, __updated__)
@@ -39,8 +39,8 @@ schScriptFolder = 'SachathyaScripts'
 userName = None
 userEmailId = None
 disableStream = 0
-pyDesigner = 'C:\\Python34\\Lib\\site-packages\\PyQt6\\designer.exe'
-guiStartUpScript = 'F:\\PythonWorkspace\\SachathyaScripts\\Starter.py'
+pyDesigner = 'PyQt5/designer.exe'
+guiStartUpScript = 'SachathyaScripts/Starter.py'
 
 #Dynamic lookups
 

@@ -1,3 +1,4 @@
 __pycache__
 /userScripts
 error.log
+schPack/dist/*

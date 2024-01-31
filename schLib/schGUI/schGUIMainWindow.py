@@ -2,16 +2,16 @@
 import inspect
 import os
 
-from PyQt6.QtCore import (QFile, QFileInfo, QPoint, QSettings, QSignalMapper, QSize, QTextStream, Qt, )
-from PyQt6.QtWidgets import (QApplication, QFileDialog, QMainWindow, QMdiArea, QMessageBox, QTextEdit, QWidget, )
-from PyQt6.QtGui import (QAction, QIcon, QKeySequence, QFont, QColor)
-from PyQt6.Qsci import (QsciScintilla, QsciLexerPython)
-from PyQt6 import QtCore, QtGui, Qsci, QtWidgets
-from PyQt6.uic import load_ui as loadUi
+from PyQt5.QtCore import (QFile, QFileInfo, QPoint, QSettings, QSignalMapper, QSize, QTextStream, Qt, )
+from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QMainWindow, QMdiArea, QMessageBox, QTextEdit, QWidget, )
+from PyQt5.QtGui import ( QIcon, QKeySequence, QFont, QColor)
+from PyQt5.Qsci import (QsciScintilla, QsciLexerPython)
+from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
+from PyQt5.uic import loadUi
 import os
 import sys
 import logging as log
-from PyQt6.Qt import QLineEdit
+from PyQt5.Qt import QLineEdit
 from schLib import schLookups as lookups
 from schLib import fatcow_rc
 from schLib.schGUI import schPythonEditor
@@ -33,7 +33,7 @@ class core(QtWidgets.QMainWindow):
 		QtWidgets.QMainWindow.__init__(self)		
 		self.uiFile = sys.modules[__name__].__file__
 		self.uiFile = self.uiFile.replace(".py",".ui")
-		load_ui as loadUi(self.uiFile, self)
+		loadUi(self.uiFile, self)
 		self.cmttls = kmxQtCommonTools.CommonTools(self)		
 
 	def guiInitialize(self):

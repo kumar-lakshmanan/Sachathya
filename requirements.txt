@@ -1,8 +1,11 @@
-PyQt6
+PyQt5
+qscintilla
+sip
 lxml
-PyQt6-QScintilla
+PyInstaller
 numpy
 flask
 requests
 pyqtgraph
-pyqt6-tools
+html2text
+jinja2

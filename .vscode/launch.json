@@ -10,8 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": true,
-            "env": {"PYTHONPATH": "${workspaceFolder}/../KmaxPyLib/"}
+            "justMyCode": true
         }
     ]
 }
