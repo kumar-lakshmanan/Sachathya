@@ -83,10 +83,7 @@ def doPostProcessing():
 
     print(f'\n\nCompressing to zip file...{outputPath}.zip')
     shutil.make_archive(outputPath, 'zip', outputPath)        
-
-    print(f'\n\nMoving ZIP for Publishing from...{schPublishPath}')
-    ttls.copyFile(outputPath+'.zip',schPublishPath)     
-
+ 
     print(f'\n\n\n--------Build Completed!--------')
     print('\n\n')
     print(f'Please Check: {outputPath}')
