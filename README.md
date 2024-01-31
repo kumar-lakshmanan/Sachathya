@@ -15,8 +15,8 @@ Sachathya is an open-source python based windows automation tool for rapid deskt
 
 ## Downloads
 
-* Download latest release from https://github.com/kumar-lakshmanan/Sachathya/releases
-* Download [PyQt5.zip](distribute/PyQt5.zip) (Optional)
+* Download latest from https://github.com/kumar-lakshmanan/Sachathya/releases
+* Download [PyQt5.zip](distribute/PyQt5.zip) (Optional - Read below to know more)  
 
 ## How to start
 
