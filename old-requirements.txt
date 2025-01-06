@@ -1,0 +1,15 @@
+PyQt5
+qscintilla
+sip
+lxml
+PyInstaller
+numpy
+flask
+requests
+pyqtgraph
+html2text
+jinja2
+PyQtWebEngine
+beautifulsoup4
+xmljson
+openpyxl

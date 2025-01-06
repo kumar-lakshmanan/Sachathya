@@ -7,15 +7,15 @@ __appName__ = 'Sachathya'
 __creater__ = 'Kumaresan Lakshmanan'
 __date__ = '2017-08-27'
 __version__ = '0.8.1'
-__updated__ = '2024-01-31'
-__release__ = 'Fix'
+__updated__ = '2025-01-06'
+__release__ = 'Test'
 
 versionStr = "v%s" % __version__
 versionInfo ='%s (%s)' % (versionStr, __updated__)
 licInfo="Open-source rapid tool development framework for windows based automation using python scripting"
 contactInfo = 'Contact kaymatrix@gmail.com for more info.'
 
-logFormt = '[%(asctime)s] %(module)s - %(funcName)s() [%(levelname)s] %(message)s' 
+logFormt = '[%(asctime)s] %(module)s - %(funcName)s() [%(levelname)s] %(message)s'
 loggerName = __app__
 stdLogFile = __app__ + '_log.txt'
 
@@ -47,6 +47,3 @@ guiStartUpScript = 'SachathyaScripts/Starter.py'
 isFirstTime = None
 ciperKey = None
 cleanUpDone = False
-
-
-

@@ -1,11 +1,11 @@
 schAppName = 'Sachathya'
-schSourceCodeHome = 'G:/pythoncodes/Sachathya'
+schSourceCodeHome = 'G:/pyworkspace/Sachathya'
 schMainEntryCode = f'{schSourceCodeHome}/sachathya.py'
 schPublishPath = f'{schSourceCodeHome}/distribute/{schAppName}.zip'
 schPackerHome = f'{schSourceCodeHome}/schPack'
 schVersionFile = f'{schSourceCodeHome}/schLib/schLookups.py'
 schVersionHistoryFile = f'{schPackerHome}/build_support/addons/VersionHistory.txt'
-kmxPyLibSourceCodeHome = 'G:/pythoncodes/KmaxPyLib'
+kmxPyLibSourceCodeHome = 'G:/pyworkspace/KmaxPyLib'
 specTemplate = f'{schPackerHome}/build_support/pyInstallerSpecTemplate.txt'
 schAppIcon = f'{schPackerHome}/build_support/appicon.ico'
 builderUI = f'{schPackerHome}/build_support/builder.ui'
@@ -16,25 +16,25 @@ outputPath = f'{distPath}/{schAppName}'
 
 #Will be placed nxt to Sachathya exe
 addOnFiles = []
-addOnFiles.append('G:\\pythoncodes\\Sachathya\\README.md')
-addOnFiles.append('G:\\pythoncodes\\Sachathya\\templateConsoleScript.py')
-addOnFiles.append('G:\\pythoncodes\\Sachathya\\templateGUIScript.py')
-addOnFiles.append('G:\\pythoncodes\\Sachathya\\templateGUIScript.ui')
-addOnFiles.append('G:\\pythoncodes\\Sachathya\\config.ini')
-addOnFiles.append('G:\\pythoncodes\\Sachathya\\layout.lyt')
-addOnFiles.append('G:\\pythoncodes\\Sachathya\\docs\\PyOne Presentation.pdf')
+addOnFiles.append('G:\\pyworkspace\\Sachathya\\README.md')
+addOnFiles.append('G:\\pyworkspace\\Sachathya\\templateConsoleScript.py')
+addOnFiles.append('G:\\pyworkspace\\Sachathya\\templateGUIScript.py')
+addOnFiles.append('G:\\pyworkspace\\Sachathya\\templateGUIScript.ui')
+addOnFiles.append('G:\\pyworkspace\\Sachathya\\config.ini')
+addOnFiles.append('G:\\pyworkspace\\Sachathya\\layout.lyt')
+addOnFiles.append('G:\\pyworkspace\\Sachathya\\docs\\PyOne Presentation.pdf')
 
 #Contents will be placed nxt to Sachathya exe
 addOnFolders = []
-addOnFolders.append('G:\\pythoncodes\\Sachathya\\schPack\\build_support\\addons')
+addOnFolders.append('G:\\pyworkspace\\Sachathya\\schPack\\build_support\\addons')
 
 #Special File Copy
 splAddOnFiles = []
-splAddOnFiles.append(('G:\\pythoncodes\\Sachathya\\schLib\\schGUI\\schGUIMainWindow.uic', f'{outputPath}\_internal\schLib\schGUI\schGUIMainWindow.uic'))
+splAddOnFiles.append(('G:\\pyworkspace\\Sachathya\\schLib\\schGUI\\schGUIMainWindow.uic', f'{outputPath}\_internal\schLib\schGUI\schGUIMainWindow.uic'))
 
 #Special Folder Copy
 splAddOnFolders = []
-splAddOnFolders.append(('G:\\pythoncodes\\Sachathya\\SachathyaScripts', f'{outputPath}\\SachathyaScripts'))
+splAddOnFolders.append(('G:\\pyworkspace\\Sachathya\\SachathyaScripts', f'{outputPath}\\SachathyaScripts'))
 
 #-----------------------------------
 
